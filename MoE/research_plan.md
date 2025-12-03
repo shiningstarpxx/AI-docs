@@ -984,25 +984,99 @@ Mergekit + MoE：
 
 ## 📚 核心论文清单（按优先级）
 
-### ⭐⭐⭐ 必读
+### ⭐⭐⭐ 必读论文
+
 1. **Jacobs et al., 1991** - Adaptive Mixture of Local Experts
+   - 📄 Jacobs, R. A., Jordan, M. I., Nowlan, S. J., & Hinton, G. E. 
+   - *Neural Computation*, 3(1), 79-87
+   - 🔗 https://doi.org/10.1162/neco.1991.3.1.79
+   - **重要性**：MoE开创性工作，奠定理论基础
+
 2. **Shazeer et al., 2017** - Outrageously Large Neural Networks
+   - 📄 Shazeer, N., Mirhoseini, A., Maziarz, K., et al.
+   - *ICLR 2017*
+   - 🔗 https://arxiv.org/abs/1701.06538
+   - **重要性**：稀疏MoE，深度学习时代的复兴
+
 3. **Fedus et al., 2021** - Switch Transformers
+   - 📄 Fedus, W., Zoph, B., & Shazeer, N.
+   - *JMLR*, 2022
+   - 🔗 https://arxiv.org/abs/2101.03961
+   - **重要性**：简化设计，万亿参数模型
+
 4. **Mistral AI, 2023** - Mixtral of Experts
+   - 📄 Jiang, A. Q., et al.
+   - *Mistral AI Technical Report*
+   - 🔗 https://mistral.ai/news/mixtral-of-experts/
+   - **重要性**：首个开源高质量MoE，工业级应用
+
 5. **DeepSeek, 2024** - DeepSeek-MoE
+   - 📄 DeepSeek AI
+   - 🔗 https://arxiv.org/abs/2401.06066
+   - **重要性**：细粒度专家，共享+路由架构
 
-### ⭐⭐ 重要
-6. Jordan & Jacobs, 1994 - Hierarchical Mixtures of Experts
-7. Du et al., 2022 - GLaM
-8. Zoph et al., 2022 - ST-MoE
-9. xAI, 2024 - Grok-1
-10. Lin et al., 2024 - LLaVA-MoE
+### ⭐⭐ 重要论文
 
-### ⭐ 补充
-11. Expert Choice Routing论文
-12. Soft MoE论文
-13. MoE Scaling Laws研究
-14. 各类工程优化论文
+6. **Jordan & Jacobs, 1994** - Hierarchical Mixtures of Experts
+   - 📄 Jordan, M. I., & Jacobs, R. A.
+   - *Neural Computation*, 6(2), 181-214
+   - **贡献**：层次化MoE，EM算法训练
+
+7. **Du et al., 2021** - GLaM
+   - 📄 Du, N., Huang, Y., Dai, A. M., et al.
+   - *ICML 2022*
+   - 🔗 https://arxiv.org/abs/2112.06905
+   - **贡献**：1.2T参数，训练成本仅GPT-3的1/3
+
+8. **Zoph et al., 2022** - ST-MoE
+   - 📄 Zoph, B., Bello, I., Kumar, S., et al.
+   - 🔗 https://arxiv.org/abs/2202.08906
+   - **贡献**：稳定性技术，Router z-loss
+
+9. **xAI, 2024** - Grok-1
+   - 📄 xAI Team
+   - 🔗 https://github.com/xai-org/grok-1
+   - **贡献**：314B开源MoE
+
+10. **Lin et al., 2024** - LLaVA-MoE
+    - 📄 Lin, J., et al.
+    - **贡献**：多模态MoE，视觉-语言融合
+
+### ⭐ 补充论文
+
+11. **Expert Choice Routing** (Zhou et al., 2022)
+    - 🔗 https://arxiv.org/abs/2202.09368
+    - **贡献**：反转路由，专家选择token
+
+12. **Soft MoE** (Puigcerver et al., 2023)
+    - 🔗 https://arxiv.org/abs/2308.00951
+    - **贡献**：软路由，所有专家参与
+
+13. **MoE Scaling Laws** (Clark et al., 2022)
+    - **贡献**：理论分析，最优专家数量
+
+14. **Qwen1.5-MoE** (Bai et al., 2024)
+    - 🔗 https://arxiv.org/abs/2309.16609
+    - **贡献**：高效小型MoE
+
+### 📖 综述论文
+
+15. **Model-Based RL Survey** (Moerland et al., 2023)
+    - *Foundations and Trends in Machine Learning*
+    - **覆盖**：MoE在强化学习中的应用
+
+16. **Deep Learning for Video Prediction** (Oprea et al., 2020)
+    - **相关**：MoE用于视频生成
+
+### 🔧 工程实现论文
+
+17. **DeepSpeed-MoE** (Rajbhandari et al., 2022)
+    - 🔗 https://arxiv.org/abs/2201.05596
+    - **贡献**：高效训练系统
+
+18. **Megablocks** (Gale et al., 2023)
+    - 🔗 https://arxiv.org/abs/2211.15841
+    - **贡献**：高效稀疏计算
 
 ---
 

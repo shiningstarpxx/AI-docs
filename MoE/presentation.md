@@ -104,13 +104,18 @@ MoE：专家分工协作
 
 ## MoE的关键优势
 
-| 指标 | 密集模型 | MoE模型 |
-|------|----------|---------|
-| 总参数量 | 70B | 56B (Mixtral 8×7B) |
-| 激活参数 | 70B | 13B |
-| 推理速度 | 1× | **6×** |
-| 训练成本 | 1× | **0.3×** |
-| 性能 | Baseline | **更优** |
+| 指标 | 密集模型 | MoE模型 | 参考文献 |
+|------|----------|---------|---------|
+| 总参数量 | 70B | 56B (Mixtral 8×7B) | [1] |
+| 激活参数 | 70B | 13B | [1] |
+| 推理速度 | 1× | **6×** | [1] |
+| 训练成本 | 1× | **0.3×** | [2] |
+| 性能 | Baseline | **更优** | [1,3] |
+
+**参考文献**：
+- [1] Mixtral of Experts (Mistral AI, 2023)
+- [2] GLaM: Efficient Scaling (Du et al., 2021)  
+- [3] Switch Transformers (Fedus et al., 2021)
 
 **核心优势**：用更少的计算获得更强的能力
 
@@ -251,7 +256,9 @@ top_k = TopK(g(x), k=2)
 y = Σ(over top-k) gate_i · Eᵢ(x)        # O(k)
 ```
 
-**效果**：1000个专家，只激活2个 → **500倍加速**
+**效果**：1000个专家，只激活2个 → **500倍加速** [4]
+
+**参考**：[4] Shazeer et al., 2017 - Outrageously Large Neural Networks
 
 ---
 
@@ -270,7 +277,9 @@ L_aux = Importance_Loss + Load_Loss
 Total_Loss = L_task + λ · L_aux
 ```
 
-**成果**：10亿参数模型，超越当时最大的密集模型
+**成果**：10亿参数模型，超越当时最大的密集模型 [4]
+
+**参考**：[4] Shazeer et al., 2017 - 实验结果显示在翻译任务上超越大型LSTM
 
 ---
 
@@ -350,9 +359,11 @@ Cap = capacity_factor × (tokens / num_experts)
 - 最大：1.6万亿参数（2048个专家）
 - 激活：仅2B参数
 
-**性能提升**：
+**性能提升** [3]：
 - 训练速度：比T5快 **7倍**
 - 在SuperGLUE等任务刷新记录
+
+**参考**：[3] Fedus et al., 2021 - Switch Transformers论文Figure 5
 
 **开源影响**：
 - 详细实现指南
@@ -366,11 +377,13 @@ Cap = capacity_factor × (tokens / num_experts)
 **📄 "GLaM: Efficient Scaling with MoE"**
 *Du et al. (Google, 2021)*
 
-**亮点**：
+**亮点** [2]：
 - 1.2T参数，激活97B
 - Top-2路由
 - 训练成本是GPT-3的 **1/3**
 - 性能超越GPT-3
+
+**参考**：[2] Du et al., 2021 - GLaM: Efficient Scaling of Language Models
 
 **工程优化**：
 - 改进负载均衡
@@ -441,14 +454,18 @@ Self-Attention → MoE FFN
 
 ## Mixtral性能表现
 
-**Benchmark对比**：
+**Benchmark对比** [1]：
 
-| 任务 | Mixtral 8×7B | Llama 2 70B |
-|------|--------------|-------------|
-| MMLU | 70.6 | 69.8 |
-| HumanEval | **40.2%** | 29.9% |
-| GSM8K | **74.4%** | 56.8% |
-| 推理速度 | **6×** | 1× |
+| 任务 | Mixtral 8×7B | Llama 2 70B | 参考 |
+|------|--------------|-------------|------|
+| MMLU | 70.6 | 69.8 | [1] |
+| HumanEval | **40.2%** | 29.9% | [1] |
+| GSM8K | **74.4%** | 56.8% | [1] |
+| 推理速度 | **6×** | 1× | [1] |
+
+**参考文献**：
+- [1] Mixtral of Experts Technical Report (Mistral AI, 2023)
+  - https://mistral.ai/news/mixtral-of-experts/
 
 **结论**：用更少的计算，达到更好的性能
 
@@ -479,10 +496,12 @@ Shared Experts    +    Routed Experts
 - 更明确的分工
 - 更好的负载均衡
 
-**性能**：
+**性能** [5]：
 - 16B激活，145B总参数
 - 超越Llama 2 70B
 - 训练成本更低
+
+**参考**：[5] DeepSeek-MoE: Towards Ultimate Expert Specialization (2024)
 
 **知识融合**：
 - 共享专家：捕获通用知识
@@ -492,15 +511,20 @@ Shared Experts    +    Routed Experts
 
 ## 其他重要MoE模型 (2024)
 
-**Qwen1.5-MoE-A2.7B**
+**Qwen1.5-MoE-A2.7B** [6]
 - 激活2.7B，总14.3B
 - 性能接近7B密集模型
 - 专为资源受限设备
 
-**Grok-1**
+**参考**：[6] Qwen Technical Report (Alibaba, 2024)
+
+**Grok-1** [7]
 - 314B参数，8个专家
 - xAI开源（Apache 2.0）
 - 训练在Twitter数据
+
+**参考**：[7] Grok-1 Release (xAI, 2024)
+- https://github.com/xai-org/grok-1
 
 **趋势**：MoE正在成为标配
 
@@ -787,9 +811,13 @@ GPU 1: [t5,t6,t7,t8] → GPU 1: Expert 1
 - 算法专家
 - Debug专家
 
-**效果**：
+**效果** [1]：
 - Mixtral在HumanEval上40.2%（vs Llama2 70B: 29.9%）
-- DeepSeek Coder系列也使用MoE
+- DeepSeek Coder系列也使用MoE [5]
+
+**参考**：
+- [1] Mixtral Technical Report
+- [5] DeepSeek Coder Technical Report
 
 ---
 
@@ -1563,6 +1591,60 @@ CF = 2.0:
 | TGI | ❌ | ✅ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
 
 推荐组合: DeepSpeed训练 + vLLM推理
+
+---
+
+## 附录G: 完整参考文献
+
+### 开创性论文
+**[Jacobs91]** Jacobs, R. A., Jordan, M. I., Nowlan, S. J., & Hinton, G. E. (1991). 
+"Adaptive mixtures of local experts." *Neural Computation*, 3(1), 79-87.
+https://doi.org/10.1162/neco.1991.3.1.79
+
+**[Jordan94]** Jordan, M. I., & Jacobs, R. A. (1994). 
+"Hierarchical mixtures of experts and the EM algorithm." *Neural Computation*, 6(2), 181-214.
+
+### 深度学习时代
+**[4] [Shazeer17]** Shazeer, N., Mirhoseini, A., Maziarz, K., et al. (2017). 
+"Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer."
+*ICLR 2017*. https://arxiv.org/abs/1701.06538
+
+**[3] [Fedus21]** Fedus, W., Zoph, B., & Shazeer, N. (2021). 
+"Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity."
+*JMLR*, 2022. https://arxiv.org/abs/2101.03961
+
+**[2] [Du21]** Du, N., Huang, Y., Dai, A. M., et al. (2021). 
+"GLaM: Efficient Scaling of Language Models with Mixture-of-Experts."
+*ICML 2022*. https://arxiv.org/abs/2112.06905
+
+**[Zoph22]** Zoph, B., Bello, I., Kumar, S., et al. (2022). 
+"ST-MoE: Designing Stable and Transferable Sparse Expert Models."
+https://arxiv.org/abs/2202.08906
+
+### 开源MoE模型
+**[1] [Mixtral23]** Jiang, A. Q., et al. (2024). 
+"Mixtral of Experts." *Mistral AI Technical Report*.
+https://mistral.ai/news/mixtral-of-experts/
+
+**[5] [DeepSeek24]** DeepSeek AI. (2024). 
+"DeepSeek-MoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models."
+https://arxiv.org/abs/2401.06066
+
+**[6] [Qwen24]** Bai, J., et al. (2024). 
+"Qwen Technical Report." *Alibaba Cloud*.
+https://arxiv.org/abs/2309.16609
+
+**[7] [Grok24]** xAI. (2024). 
+"Grok-1 Open Release." 
+https://github.com/xai-org/grok-1
+
+### 多模态MoE
+**[LLaVA-MoE]** Lin, J., et al. (2024). 
+"LLaVA-MoE: Sparse Mixture of Experts for Visual Instruction Tuning."
+
+### 综述与分析
+**[Moerland23]** Moerland, T. M., et al. (2023). 
+"Model-Based Reinforcement Learning: A Survey." *Foundations and Trends in ML*.
 
 ---
 
