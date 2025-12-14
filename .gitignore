@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Training artifacts (large files)
+*.pt
+*.pth
+*.pkl
+*.npz
+*.h5
+*.ckpt
+encoded_z.npz
+
+# Experiment results (keep small results, exclude large ones)
+world_models/experiments/results_car_racing_paper/
+world_models/experiments/venv/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Temporary files
+*.tmp
+*.temp

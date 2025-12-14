@@ -1,0 +1,32 @@
+{
+  "dqn": {
+    "mean_reward": 275.2014702642376,
+    "std_reward": 139.21807756019408,
+    "max_reward": 634.1440404227619,
+    "min_reward": 10.0,
+    "final_reward": 491.3704345404396,
+    "total_episodes": 500,
+    "total_steps": 136645,
+    "convergence_episode": 422
+  },
+  "simple_wm": {
+    "mean_reward": 81.45291122674172,
+    "std_reward": 36.559886462424224,
+    "max_reward": 147.66580096222992,
+    "min_reward": 20.440420237743087,
+    "final_reward": 77.74557049677821,
+    "total_episodes": 100,
+    "total_steps": 20000,
+    "convergence_episode": 100
+  },
+  "mini_dreamer": {
+    "mean_reward": 321.6899404439265,
+    "std_reward": 125.7775758447102,
+    "max_reward": 567.2277966861737,
+    "min_reward": 42.91259940382844,
+    "final_reward": 502.99937158009504,
+    "total_episodes": 300,
+    "total_steps": 60000,
+    "convergence_episode": 245
+  }
+}

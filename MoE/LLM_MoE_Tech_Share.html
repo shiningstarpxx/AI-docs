@@ -1,0 +1,1293 @@
+<!DOCTYPE html><html><head>
+      <title>LLM_MoE_Tech_Share</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/peixingxin/.codebuddycn/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/katex/katex.min.css">
+      
+      
+      <script type="text/javascript" src="file:////Users/peixingxin/.codebuddycn/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/mermaid/mermaid.min.js" charset="UTF-8"></script>
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="大模型时代的-moe-技术演进">大模型时代的 MoE 技术演进 </h1>
+<blockquote>
+<p>聚焦 2021-2024 年 Transformer 架构下的 MoE 关键技术突破</p>
+</blockquote>
+<p>本文档基于大模型（LLM）视角，梳理了 Mixture of Experts (MoE) 从复兴到成熟过程中的四个关键技术里程碑。每个阶段都着重回答：解决了什么问题？是如何解决的？并提供形式化的技术细节。</p>
+<hr>
+<h2 id="0-为什么大模型时代依然需要-moe">0. 为什么大模型时代依然需要 MoE？ </h2>
+<h3 id="01-密集模型的扩展困境">0.1 密集模型的扩展困境 </h3>
+<p><strong>Scaling Laws 的启示与困境</strong></p>
+<p>自 GPT-3 以来，研究表明模型性能与参数量呈幂律关系：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Loss</mtext><mo>∝</mo><msup><mi>N</mi><mrow><mo>−</mo><mi>α</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\text{Loss} \propto N^{-\alpha}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">Loss</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∝</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8213em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8213em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.0037em;">α</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> 为参数量，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>≈</mo><mn>0.076</mn></mrow><annotation encoding="application/x-tex">\alpha \approx 0.076</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.076</span></span></span></span></p>
+<p><strong>问题</strong>：要显著提升性能，需要指数级增加参数。</p>
+<ul>
+<li>
+<p><strong>形式化分析</strong>：</p>
+<p>假设从 GPT-3 (175B) 提升到下一代：</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>性能提升 10%：需要参数量 ≈ 1.75T  (10× 参数)
+性能提升 20%：需要参数量 ≈ 17.5T  (100× 参数)
+</code></pre><p><strong>计算成本爆炸</strong>：<br>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext>FLOPs</mtext><mtext>training</mtext></msub><mo>≈</mo><mn>6</mn><mo>×</mo><mi>N</mi><mo>×</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">\text{FLOPs}_{\text{training}} \approx 6 \times N \times D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord text"><span class="mord">FLOPs</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3175em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">training</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span><br>
+其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> 为参数量，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span> 为训练 token 数</p>
+<p><strong>推理成本线性增长</strong>：<br>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext>Latency</mtext><mtext>inference</mtext></msub><mo>∝</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">\text{Latency}_{\text{inference}} \propto N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9275em;vertical-align:-0.2441em;"></span><span class="mord"><span class="mord text"><span class="mord">Latency</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.242em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">inference</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∝</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span></p>
+</li>
+</ul>
+<h3 id="02-三大核心挑战">0.2 三大核心挑战 </h3>
+<p><strong>挑战 1：训练成本不可承受</strong></p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>密集模型扩展曲线：
+
+GPT-3 (175B)    训练成本: $4.6M    训练时间: 34天
+    ↓ 10×
+假设 1.75T      训练成本: $46M     训练时间: 340天 ✗
+    ↓ 10×
+假设 17.5T      训练成本: $460M    训练时间: 9.3年 ✗✗
+</code></pre><p><strong>参考数据</strong>：</p>
+<ul>
+<li>GPT-3 训练：~3.14×10²³ FLOPs</li>
+<li>1.75T 模型估算：~3.14×10²⁴ FLOPs（需要 10,000+ A100 GPU）</li>
+</ul>
+<p><strong>挑战 2：推理延迟无法接受</strong></p>
+<ul>
+<li>
+<p><strong>形式化表达</strong>：</p>
+<p>单个 Token 生成延迟：<br>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mtext>latency</mtext></msub><mo>=</mo><mfrac><mrow><mi>N</mi><mo>×</mo><mn>2</mn></mrow><mtext>Memory&nbsp;Bandwidth</mtext></mfrac><mo>+</mo><msub><mi>T</mi><mtext>compute</mtext></msub></mrow><annotation encoding="application/x-tex">T_{\text{latency}} = \frac{N \times 2}{\text{Memory Bandwidth}} + T_{\text{compute}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">latency</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.2408em;vertical-align:-0.8804em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">Memory&nbsp;Bandwidth</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">compute</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p><strong>数值示例</strong> (A100 80GB, 1.9 TB/s 带宽):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模型规模</th>
+<th style="text-align:left">参数加载时间</th>
+<th style="text-align:left">总延迟</th>
+<th style="text-align:left">实时性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">7B (fp16)</td>
+<td style="text-align:left">~7ms</td>
+<td style="text-align:left">~15ms</td>
+<td style="text-align:left">✅ 可接受</td>
+</tr>
+<tr>
+<td style="text-align:left">70B (fp16)</td>
+<td style="text-align:left">~74ms</td>
+<td style="text-align:left">~90ms</td>
+<td style="text-align:left">⚠️ 勉强</td>
+</tr>
+<tr>
+<td style="text-align:left">175B (fp16)</td>
+<td style="text-align:left">~184ms</td>
+<td style="text-align:left">~220ms</td>
+<td style="text-align:left">❌ 太慢</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>1.75T (fp16)</strong></td>
+<td style="text-align:left"><strong>~1.84s</strong></td>
+<td style="text-align:left"><strong>~2s</strong></td>
+<td style="text-align:left">❌❌ 不可用</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p><strong>挑战 3：GPU 显存墙</strong></p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>显存需求（推理，fp16）：
+
+Model Size    显存需求      GPU配置              成本
+7B            14 GB        1× A100 (80GB)      $10K
+70B           140 GB       2× A100 (80GB)      $20K
+175B          350 GB       5× A100 (80GB)      $50K
+1.75T         3.5 TB       44× A100 (80GB) ✗   $440K ✗
+
+问题：单次推理需要几十张卡，成本和通信开销不可接受
+</code></pre><h3 id="03-moe破解困境的钥匙">0.3 MoE：破解困境的钥匙 </h3>
+<p><strong>MoE 的核心思想：条件计算 (Conditional Computation)</strong></p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>密集模型：                    MoE 模型：
+所有参数都参与计算              只激活部分专家
+
+[Input]                      [Input]
+   ↓                            ↓
+[175B 参数]                   [Router] → 选择 2/8 专家
+   ↓                            ↓
+全部计算 ✗                    [Expert 1] + [Expert 2]
+   ↓                            ↓
+[Output]                      [Output]
+
+推理成本: 175B FLOPs          推理成本: 22B FLOPs ✓
+延迟: 220ms                   延迟: 28ms ✓
+</code></pre><p><strong>数学表达</strong>：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd class="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mtext>密集模型：</mtext><mspace width="1em"></mspace></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>y</mi><mo>=</mo><mtext>FFN</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>W</mi><mn>2</mn></msub><mo>⋅</mo><mtext>ReLU</mtext><mo stretchy="false">(</mo><msub><mi>W</mi><mn>1</mn></msub><mo>⋅</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd class="mtr-glue"></mtd><mtd class="mml-eqn-num"></mtd></mtr><mtr><mtd class="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext>计算量：</mtext><mi>O</mi><mo stretchy="false">(</mo><mi>d</mi><mo>×</mo><msub><mi>d</mi><mtext>ffn</mtext></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd class="mtr-glue"></mtd><mtd class="mml-eqn-num"></mtd></mtr><mtr><mtd class="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext>其中&nbsp;</mtext><mi>d</mi><mtext>&nbsp;为&nbsp;model&nbsp;dimension,&nbsp;</mtext><msub><mi>d</mi><mtext>ffn</mtext></msub><mtext>&nbsp;为&nbsp;FFN&nbsp;中间层维度（通常&nbsp;</mtext><mn>4</mn><mi>d</mi><mtext>）</mtext></mrow></mstyle></mtd><mtd class="mtr-glue"></mtd><mtd class="mml-eqn-num"></mtd></mtr><mtr><mtd class="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mtext>MoE&nbsp;模型：</mtext><mspace width="1em"></mspace></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>y</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mtext>TopK</mtext><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></munder><msub><mi>g</mi><mi>i</mi></msub><mo>⋅</mo><msub><mtext>Expert</mtext><mi>i</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd class="mtr-glue"></mtd><mtd class="mml-eqn-num"></mtd></mtr><mtr><mtd class="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext>计算量：</mtext><mi>O</mi><mo stretchy="false">(</mo><mi>K</mi><mo>×</mo><mi>d</mi><mo>×</mo><msub><mi>d</mi><mtext>expert</mtext></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd class="mtr-glue"></mtd><mtd class="mml-eqn-num"></mtd></mtr><mtr><mtd class="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mtext>关键设计：</mtext><mspace width="1em"></mspace></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext>总专家容量：</mtext><mi>E</mi><mo>×</mo><msub><mi>d</mi><mtext>expert</mtext></msub><mo>≫</mo><msub><mi>d</mi><mtext>ffn</mtext></msub><mtext>&nbsp;（更多总参数）</mtext></mrow></mstyle></mtd><mtd class="mtr-glue"></mtd><mtd class="mml-eqn-num"></mtd></mtr><mtr><mtd class="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext>激活参数：</mtext><mi>K</mi><mo>×</mo><msub><mi>d</mi><mtext>expert</mtext></msub><mo>≪</mo><msub><mi>d</mi><mtext>ffn</mtext></msub><mtext>&nbsp;（更少计算量）</mtext></mrow></mstyle></mtd><mtd class="mtr-glue"></mtd><mtd class="mml-eqn-num"></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align}
+\text{密集模型：} \quad &amp; y = \text{FFN}(x) = W_2 \cdot \text{ReLU}(W_1 \cdot x) \\
+&amp; \text{计算量：} O(d \times d_{\text{ffn}}) \\
+&amp; \text{其中 } d \text{ 为 model dimension, } d_{\text{ffn}} \text{ 为 FFN 中间层维度（通常 } 4d\text{）} \\[10pt]
+\text{MoE 模型：} \quad &amp; y = \sum_{i \in \text{TopK}(r)} g_i \cdot \text{Expert}_i(x) \\
+&amp; \text{计算量：} O(K \times d \times d_{\text{expert}}) \\[10pt]
+\text{关键设计：} \quad &amp; \text{总专家容量：} E \times d_{\text{expert}} \gg d_{\text{ffn}} \text{ （更多总参数）} \\
+&amp; \text{激活参数：} K \times d_{\text{expert}} \ll d_{\text{ffn}} \text{ （更少计算量）}
+\end{align}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:13.866em;vertical-align:-6.683em;"></span><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:7.183em;"><span style="top:-9.393em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">密集模型：</span></span><span class="mspace" style="margin-right:1em;"></span></span></span><span style="top:-7.893em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"></span></span><span style="top:-6.393em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"></span></span><span style="top:-3.683em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mord text"><span class="mord">MoE&nbsp;</span><span class="mord cjk_fallback">模型：</span></span><span class="mspace" style="margin-right:1em;"></span></span></span><span style="top:-1.027em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"></span></span><span style="top:1.473em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">关键设计：</span></span><span class="mspace" style="margin-right:1em;"></span></span></span><span style="top:2.973em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:6.683em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:7.183em;"><span style="top:-9.393em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mord"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord text"><span class="mord">FFN</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord text"><span class="mord">ReLU</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span><span style="top:-7.893em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mord"></span><span class="mord text"><span class="mord cjk_fallback">计算量：</span></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">ffn</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span><span style="top:-6.393em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mord"></span><span class="mord text"><span class="mord cjk_fallback">其中</span><span class="mord">&nbsp;</span></span><span class="mord mathnormal">d</span><span class="mord text"><span class="mord">&nbsp;</span><span class="mord cjk_fallback">为</span><span class="mord">&nbsp;model&nbsp;dimension,&nbsp;</span></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">ffn</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord text"><span class="mord">&nbsp;</span><span class="mord cjk_fallback">为</span><span class="mord">&nbsp;FFN&nbsp;</span><span class="mord cjk_fallback">中间层维度（通常</span><span class="mord">&nbsp;</span></span><span class="mord">4</span><span class="mord mathnormal">d</span><span class="mord text"><span class="mord cjk_fallback">）</span></span></span></span><span style="top:-3.683em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mord"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.809em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">∈</span><span class="mord text mtight"><span class="mord mtight">TopK</span></span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.516em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord text"><span class="mord">Expert</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2175em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span><span style="top:-1.027em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mord"></span><span class="mord text"><span class="mord cjk_fallback">计算量：</span></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">expert</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span><span style="top:1.473em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mord"></span><span class="mord text"><span class="mord cjk_fallback">总专家容量：</span></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">expert</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≫</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">ffn</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord text"><span class="mord">&nbsp;</span><span class="mord cjk_fallback">（更多总参数）</span></span></span></span><span style="top:2.973em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mord"></span><span class="mord text"><span class="mord cjk_fallback">激活参数：</span></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">expert</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≪</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">ffn</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord text"><span class="mord">&nbsp;</span><span class="mord cjk_fallback">（更少计算量）</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:6.683em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:7.183em;"><span style="top:-9.393em;"><span class="pstrut" style="height:3.05em;"></span><span class="eqn-num"></span></span><span style="top:-7.893em;"><span class="pstrut" style="height:3.05em;"></span><span class="eqn-num"></span></span><span style="top:-6.393em;"><span class="pstrut" style="height:3.05em;"></span><span class="eqn-num"></span></span><span style="top:-3.683em;"><span class="pstrut" style="height:3.05em;"></span><span class="eqn-num"></span></span><span style="top:-1.027em;"><span class="pstrut" style="height:3.05em;"></span><span class="eqn-num"></span></span><span style="top:1.473em;"><span class="pstrut" style="height:3.05em;"></span><span class="eqn-num"></span></span><span style="top:2.973em;"><span class="pstrut" style="height:3.05em;"></span><span class="eqn-num"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:6.683em;"><span></span></span></span></span></span></span></span></span></p>
+<p><strong>符号说明</strong>：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span>: Model dimension (embedding size)，如 GPT-3 的 12288</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mtext>ffn</mtext></msub></mrow><annotation encoding="application/x-tex">d_{\text{ffn}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">ffn</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: 密集 FFN 的中间层维度，通常为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">4d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">4</span><span class="mord mathnormal">d</span></span></span></span>（如 49152）</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mtext>expert</mtext></msub></mrow><annotation encoding="application/x-tex">d_{\text{expert}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">expert</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>: 每个专家的中间层维度</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span>: 专家总数</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span></span></span></span>: Top-K 路由中的 K</li>
+</ul>
+<h3 id="04-moe-的理论优势">0.4 MoE 的理论优势 </h3>
+<p><strong>优势对比表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">维度</th>
+<th style="text-align:left">密集模型 (175B)</th>
+<th style="text-align:left">MoE (8×22B, Top-2)</th>
+<th style="text-align:left">提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>总参数</strong></td>
+<td style="text-align:left">175B</td>
+<td style="text-align:left">176B</td>
+<td style="text-align:left">持平</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>激活参数</strong></td>
+<td style="text-align:left">175B</td>
+<td style="text-align:left">44B</td>
+<td style="text-align:left"><strong>↓ 75%</strong> ⭐</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>训练速度</strong></td>
+<td style="text-align:left">1×</td>
+<td style="text-align:left"><strong>~3×</strong></td>
+<td style="text-align:left">快 3 倍</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>推理延迟</strong></td>
+<td style="text-align:left">220ms</td>
+<td style="text-align:left"><strong>~55ms</strong></td>
+<td style="text-align:left">快 4 倍</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>显存需求</strong></td>
+<td style="text-align:left">350GB</td>
+<td style="text-align:left"><strong>88GB</strong></td>
+<td style="text-align:left">↓ 75%</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>模型容量</strong></td>
+<td style="text-align:left">175B</td>
+<td style="text-align:left"><strong>176B</strong></td>
+<td style="text-align:left">可扩展到更大</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键洞察</strong>：</p>
+<ul>
+<li>🎯 <strong>以较小的激活成本，获得更大的模型容量</strong></li>
+<li>⚡ <strong>训练和推理都更快</strong></li>
+<li>💰 <strong>硬件成本降低 3-4 倍</strong></li>
+</ul>
+<h3 id="05-从理论到实践需要解决的问题">0.5 从理论到实践：需要解决的问题 </h3>
+<p>虽然 MoE 理论优势明显，但实际应用面临诸多挑战：</p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>理论 MoE                          实际问题
+   ↓                                ↓
+完美负载均衡                      专家利用不均 (某些专家闲置)
+   ↓                                ↓
+稳定训练                          训练崩溃 (Logits 爆炸)
+   ↓                                ↓
+高效通信                          通信瓶颈 (跨设备数据传输)
+   ↓                                ↓
+专家专业化                        知识冗余 (专家学到相似内容)
+   ↓                                ↓
+迁移学习                          Fine-tune 失败
+</code></pre><p><strong>这些问题的解决，正是 2021-2024 年 MoE 技术演进的核心主线。</strong></p>
+<hr>
+<h2 id="1-switch-transformer-2021-规模化的开端">1. Switch Transformer (2021): 规模化的开端 </h2>
+<p><strong>技术贡献</strong>：Top-1 路由与选择性精度（Selective Precision）</p>
+<h3 id="11-为什么需要这个贡献-why">1.1 为什么需要这个贡献 (Why) </h3>
+<p><strong>问题 1：通信开销阻碍扩展 (Communication Bottleneck)</strong><br>
+传统的 MoE 使用 Top-K (K≥2) 路由，随着专家数量 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span> 和 Batch Size <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span> 的增加，跨设备通信成为瓶颈。</p>
+<ul>
+<li>
+<p><strong>形式化表达</strong>：<br>
+设 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span> 为 Batch Size，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span> 为 model dimension（即 embedding/hidden size，如 GPT-3 的 12288）。</p>
+<p>每个 token 的表示是一个 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span> 维向量，需要在设备间传输：<br>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext>CommCost</mtext><mtext>Top-K</mtext></msub><mo>∝</mo><mi>B</mi><mo>×</mo><mi>K</mi><mo>×</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">\text{CommCost}_{\text{Top-K}} \propto B \times K \times d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord text"><span class="mord">CommCost</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">Top-K</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∝</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span></span></p>
+<p><strong>具体例子</strong>：</p>
+<ul>
+<li>Batch Size <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mn>1024</mn></mrow><annotation encoding="application/x-tex">B = 1024</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1024</span></span></span></span></li>
+<li>Model dim <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>12288</mn></mrow><annotation encoding="application/x-tex">d = 12288</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">12288</span></span></span></span> (fp16: 24KB/token)</li>
+<li>Top-2: 每个 token 发送到 2 个专家</li>
+<li><strong>总通信量</strong>: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1024</mn><mo>×</mo><mn>2</mn><mo>×</mo><mn>24</mn><mtext>KB</mtext><mo>≈</mo><mn>49</mn><mtext>MB</mtext></mrow><annotation encoding="application/x-tex">1024 \times 2 \times 24\text{KB} \approx 49\text{MB}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1024</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">24</span><span class="mord text"><span class="mord">KB</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">49</span><span class="mord text"><span class="mord">MB</span></span></span></span></span> per batch</li>
+</ul>
+<p>当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">K=2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span> 时，每个 token 需要被分发两次，通信量翻倍。</p>
+</li>
+</ul>
+<p><strong>问题 2：低精度训练的不稳定性 (Instability in Low Precision)</strong><br>
+Switch Transformer 旨在用 bfloat16 训练超大模型。然而，Router 的 Softmax 计算对精度极度敏感。</p>
+<ul>
+<li><strong>数值示例</strong>：<br>
+在 bfloat16 (截断尾数) 下，微小的 Logits 差异可能被抹平或放大：<pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token comment"># 真实 Logits</span>
+logits <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">10.05</span><span class="token punctuation">,</span> <span class="token number">10.04</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span> 
+
+<span class="token comment"># float32 Softmax</span>
+probs_fp32 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0.502</span><span class="token punctuation">,</span> <span class="token number">0.498</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>  <span class="token comment"># 正常梯度</span>
+
+<span class="token comment"># bfloat16 精度截断后</span>
+logits_bf16 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">10.0</span><span class="token punctuation">,</span> <span class="token number">10.0</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>   <span class="token comment"># 差异消失</span>
+probs_bf16 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>      <span class="token comment"># 梯度方向错误！</span>
+</code></pre><strong>后果</strong>：Router 无法区分专家优劣，导致路由随机化，Loss 发散。</li>
+</ul>
+<h3 id="12-解决方案-how">1.2 解决方案 (How) </h3>
+<ol>
+<li><strong>Top-1 Routing</strong>：将 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span></span></span></span> 设为 1，通信成本减半，同时证明了模型效果未受损。</li>
+<li><strong>选择性精度</strong>：Router 内部计算强制使用 float32。</li>
+</ol>
+<h3 id="13-架构图解">1.3 架构图解 </h3>
+<p><strong>Switch Transformer 层结构</strong>：</p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>┌─────────────────────────────────────────────────────────────┐
+│                   Switch Transformer Layer                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                               │
+│  [Input Tokens: x₁, x₂, ..., xₙ]                            │
+│              ↓                                                │
+│  ┌──────────────────────────────────────┐                   │
+│  │   Multi-Head Self-Attention          │ (标准 Transformer) │
+│  └──────────────────────────────────────┘                   │
+│              ↓ (Add &amp; Norm)                                   │
+│  ┌──────────────────────────────────────┐                   │
+│  │         Router Network               │ ← float32 精度     │
+│  │    (Linear + Softmax)                │                    │
+│  └──────────────────────────────────────┘                   │
+│              ↓                                                │
+│       [Routing Probs: p₁, p₂, ..., pₑ]                      │
+│              ↓ (Top-1 Selection)                             │
+│              │                                                │
+│    ┌─────────┼─────────┬─────────┬─────────┐                │
+│    │         │         │         │         │                 │
+│  Expert₁  Expert₂  Expert₃  ...  Expertₑ   ← bfloat16      │
+│  (FFN)    (FFN)    (FFN)         (FFN)      ← 只激活1个     │
+│    │         │         │         │         │                 │
+│    └─────────┴─────────┴─────────┴─────────┘                │
+│              ↓ (Combine)                                      │
+│  [Output: y₁, y₂, ..., yₙ]                                   │
+│              ↓ (Add &amp; Norm)                                   │
+│  [To Next Layer]                                             │
+│                                                               │
+└─────────────────────────────────────────────────────────────┘
+
+关键设计：
+✓ Router 用 fp32 → 数值稳定
+✓ Expert 用 bf16 → 节省显存
+✓ Top-1 路由 → 减少通信
+</code></pre><p><strong>对比：传统 Top-2 vs Switch Top-1</strong></p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>传统 Top-2 MoE:                    Switch Top-1:
+                                   
+[Token]                            [Token]
+   ↓                                  ↓
+[Router]                           [Router] (fp32)
+   ↓                                  ↓
+选择Top-2: [E₁, E₃]                选择Top-1: [E₂]
+   ↓         ↓                        ↓
+[Expert₁] [Expert₃]                [Expert₂]
+   ↓         ↓                        ↓
+y = 0.6·E₁ + 0.4·E₃               y = 1.0·E₂
+
+通信量: 2×                         通信量: 1× ✓
+计算量: 2×                         计算量: 1× ✓
+</code></pre><h3 id="14-形式化表达与数据说明">1.4 形式化表达与数据说明 </h3>
+<p><strong>A. 混合精度实现 (PyTorch 伪代码)</strong></p>
+<pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">MoELayer</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 门控网络：强制使用 float32 保证概率计算的数值稳定性</span>
+        self<span class="token punctuation">.</span>gate <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 专家网络：使用 bfloat16 节省显存和带宽</span>
+        self<span class="token punctuation">.</span>experts <span class="token operator">=</span> nn<span class="token punctuation">.</span>ModuleList<span class="token punctuation">(</span><span class="token punctuation">[</span>
+            Expert<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">.</span>bfloat16<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-for">for</span> _ <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>num_experts<span class="token punctuation">)</span>
+        <span class="token punctuation">]</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword keyword-def">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 1. Router 计算 (High Precision)</span>
+        <span class="token keyword keyword-with">with</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>amp<span class="token punctuation">.</span>autocast<span class="token punctuation">(</span>enabled<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            router_logits <span class="token operator">=</span> self<span class="token punctuation">.</span>gate<span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            probs <span class="token operator">=</span> softmax<span class="token punctuation">(</span>router_logits<span class="token punctuation">)</span> 
+        
+        <span class="token comment"># 2. Expert 计算 (Low Precision)</span>
+        <span class="token keyword keyword-with">with</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>amp<span class="token punctuation">.</span>autocast<span class="token punctuation">(</span>dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span>bfloat16<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token comment"># ... 路由分发与计算 ...</span>
+</code></pre><p><strong>B. 消融实验：精度策略对比</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">配置</th>
+<th style="text-align:left">训练稳定性</th>
+<th style="text-align:left">显存占用</th>
+<th style="text-align:left">性能 (相对baseline)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">全 float32</td>
+<td style="text-align:left">✅ 稳定</td>
+<td style="text-align:left">100%</td>
+<td style="text-align:left">100%</td>
+</tr>
+<tr>
+<td style="text-align:left">全 bfloat16</td>
+<td style="text-align:left">❌ 崩溃</td>
+<td style="text-align:left">50%</td>
+<td style="text-align:left">- (训练失败)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Router fp32 + Expert bf16</strong></td>
+<td style="text-align:left">✅ 稳定</td>
+<td style="text-align:left"><strong>55%</strong></td>
+<td style="text-align:left"><strong>99.7%</strong> ⭐</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键洞察</strong>：仅牺牲 0.3% 性能，换来 45% 显存节省和 2× 训练加速。</p>
+<p><strong>C. Top-1 vs Top-2 对比</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">路由策略</th>
+<th style="text-align:left">通信量</th>
+<th style="text-align:left">模型质量</th>
+<th style="text-align:left">推理速度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Top-2</td>
+<td style="text-align:left">2×</td>
+<td style="text-align:left">Perplexity: 2.12</td>
+<td style="text-align:left">100% (baseline)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Top-1</strong></td>
+<td style="text-align:left"><strong>1×</strong></td>
+<td style="text-align:left">Perplexity: 2.15</td>
+<td style="text-align:left"><strong>180%</strong> (快1.8倍)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论</strong>：Top-1 在性能几乎无损的情况下，大幅降低通信和计算开销。</p>
+<hr>
+<h2 id="2-glam-2021-训练稳定性的工程基石">2. GLaM (2021): 训练稳定性的工程基石 </h2>
+<p><strong>技术贡献</strong>：改进的负载均衡与初始化策略</p>
+<h3 id="21-为什么需要这个贡献-why">2.1 为什么需要这个贡献 (Why) </h3>
+<p><strong>问题 1：赢者通吃 (Rich-get-richer Phenomenon)</strong><br>
+随机初始化会导致某些专家初始权重稍大，Router 会倾向于选择它们。这些专家获得更多数据训练，变得更强，从而吸引更多数据。</p>
+<ul>
+<li><strong>正反馈循环图解</strong>：<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>Step 0: Random Init -&gt; Expert A 略强
+   ↓
+Step 100: Router 偏向 A -&gt; A 处理 60% 数据 -&gt; A 梯度更新快
+   ↓
+Step 1000: A 变最强 -&gt; A 处理 90% 数据 -&gt; 其他专家饿死 (Collapse)
+</code></pre></li>
+</ul>
+<p><strong>问题 2：严重的负载不均</strong><br>
+在千亿参数规模下，简单的负载均衡 Loss 不足以约束。</p>
+<ul>
+<li><strong>数据可视化</strong> (GLaM 论文前)：<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>Expert Utilization:
+Exp 1: ██████████████████ (95%)  &lt;- 过载 (OOM风险)
+Exp 2: █ (2%)
+Exp 3:  (0%)                     &lt;- 浪费参数
+...
+</code></pre></li>
+</ul>
+<h3 id="22-解决方案-how">2.2 解决方案 (How) </h3>
+<ol>
+<li><strong>Dense Warmup 初始化</strong>：先训练 Dense 模型，再复制权重，确保所有专家"起跑线"一致。</li>
+<li><strong>改进的负载均衡损失</strong>：在基础损失上添加方差惩罚和极值约束。</li>
+<li><strong>Expert Dropout</strong>：训练时随机屏蔽专家，强制 Router 探索多样化路由。</li>
+</ol>
+<h3 id="23-架构图解">2.3 架构图解 </h3>
+<p><strong>GLaM 的训练流程</strong>：</p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>═══════════════════════════════════════════════════════════════
+                    GLaM 训练三阶段
+═══════════════════════════════════════════════════════════════
+
+阶段 1: Dense Warmup (1000 steps)
+┌─────────────────────────────────────┐
+│    训练标准 Dense Transformer        │
+│                                      │
+│  [Input] → [Attn] → [Dense FFN] →  │
+│         → [Attn] → [Dense FFN] →    │
+│         ... 24 layers                │
+│                                      │
+│  目标：学习基础语言表示               │
+└─────────────────────────────────────┘
+              ↓ (保存权重)
+              
+阶段 2: 初始化 MoE
+┌─────────────────────────────────────┐
+│   复制 Dense FFN 权重到所有专家      │
+│                                      │
+│  Dense FFN Weights                  │
+│         ↓         ↓         ↓       │
+│    ┌────────┬────────┬────────┐    │
+│    │Expert₁ │Expert₂ │Expert₃ │... │
+│    └────────┴────────┴────────┘    │
+│         +        +        +         │
+│      noise    noise    noise        │
+│   (σ=0.01)  (σ=0.01)  (σ=0.01)    │
+│                                      │
+│  Router 初始化为均匀分布              │
+└─────────────────────────────────────┘
+              ↓
+              
+阶段 3: MoE 训练 (含 Expert Dropout)
+┌─────────────────────────────────────┐
+│  [Input Token] → [Router]           │
+│         ↓                            │
+│   Top-2 选择: [E₂, E₅]              │
+│         ↓                            │
+│   10% 概率 Dropout:                 │
+│   → 实际使用 [E₂, E₇] (E₅被替换)   │
+│         ↓                            │
+│   [Expert₂] + [Expert₇]             │
+│         ↓                            │
+│   [Output]                          │
+│                                      │
+│  效果：                              │
+│  ✓ 避免专家固定组合                  │
+│  ✓ 强制探索多样路由                  │
+└─────────────────────────────────────┘
+</code></pre><p><strong>改进的负载均衡可视化</strong>：</p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>传统负载均衡 (Switch):          GLaM 增强负载均衡:
+
+只约束期望值                     同时约束期望、方差、极值
+    ↓                               ↓
+Expert Load (%)                 Expert Load (%)
+100|                            100|
+   |█                              | ██
+   |█                              | ██
+ 80|█                            80|███
+   |█                              |███
+   |█  █                           |███ ██
+ 60|█  █                         60|███ ███
+   |█  █  █                        |███ ███ ██
+   |█  █  █  █                     |███ ███ ███
+ 40|█  █  █  █                   40|███ ███ ███
+   +─────────────                  +─────────────
+   1  2  3  4  ...                 1  2  3  4  ...
+
+问题：方差大                     ✓ 分布均匀
+某些专家过载                     ✓ 利用率 95%
+</code></pre><h3 id="24-形式化表达与数据说明">2.4 形式化表达与数据说明 </h3>
+<p><strong>A. 改进的负载均衡损失</strong></p>
+<pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token comment"># 传统方法（Switch）：只考虑期望</span>
+L_balance <span class="token operator">=</span> λ₁ · Σ f_i · P_i
+
+<span class="token comment"># GLaM 增强版：添加方差和极值约束</span>
+L_balance <span class="token operator">=</span> λ₁ · Σ f_i · P_i           <span class="token comment"># 基础均衡</span>
+          <span class="token operator">+</span> λ₂ · Var<span class="token punctuation">(</span>f_i<span class="token punctuation">)</span>              <span class="token comment"># 方差惩罚（减少波动）</span>
+          <span class="token operator">+</span> λ₃ · <span class="token punctuation">(</span><span class="token builtin">max</span><span class="token punctuation">(</span>f_i<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token builtin">min</span><span class="token punctuation">(</span>f_i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment"># 极值约束（防止极端情况）</span>
+</code></pre><p><strong>其中</strong>：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">f_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: 专家 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span> 实际处理的 token 比例</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: Router 分配给专家 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span> 的概率</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Var</mtext><mo stretchy="false">(</mo><msub><mi>f</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{Var}(f_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Var</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>: 专家负载的方差</li>
+</ul>
+<p><strong>效果</strong>：专家利用率从 60% 提升至 <strong>95%</strong></p>
+<p><strong>B. 改进的初始化流程</strong></p>
+<div class="mermaid">graph LR
+    A[开始] --&gt; B[训练小型 Dense 模型];
+    B --&gt; C{复制权重};
+    C --&gt; D[Expert 1];
+    C --&gt; E[Expert 2];
+    C --&gt; F[Expert N];
+    D --&gt; G[添加微小随机扰动];
+    E --&gt; G;
+    F --&gt; G;
+    G --&gt; H[开始 MoE 训练];
+</div><p><strong>C. Expert Dropout 机制</strong></p>
+<pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-def">def</span> <span class="token function">forward_with_expert_dropout</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> top_k_indices<span class="token punctuation">,</span> p_drop<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    训练时随机替换选中的专家
+    """</span>
+    <span class="token keyword keyword-if">if</span> training<span class="token punctuation">:</span>
+        <span class="token comment"># 以概率 p_drop 随机替换专家</span>
+        mask <span class="token operator">=</span> torch<span class="token punctuation">.</span>rand<span class="token punctuation">(</span>top_k_indices<span class="token punctuation">.</span>shape<span class="token punctuation">)</span> <span class="token operator">&gt;</span> p_drop
+        <span class="token keyword keyword-for">for</span> i <span class="token keyword keyword-in">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>mask<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword keyword-if">if</span> <span class="token keyword keyword-not">not</span> mask<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment"># 替换为其他随机专家</span>
+                top_k_indices<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>all_expert_ids<span class="token punctuation">)</span>
+    
+    <span class="token comment"># 执行路由</span>
+    output <span class="token operator">=</span> combine_experts<span class="token punctuation">(</span>x<span class="token punctuation">,</span> top_k_indices<span class="token punctuation">)</span>
+    <span class="token keyword keyword-return">return</span> output
+</code></pre><p><strong>作用</strong>：</p>
+<ul>
+<li>打破专家固定组合</li>
+<li>防止共适应（Co-adaptation）</li>
+<li>提高泛化能力</li>
+</ul>
+<p><strong>D. 数据对比：初始化策略的影响</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">初始化方法</th>
+<th style="text-align:left">收敛速度</th>
+<th style="text-align:left">专家利用率</th>
+<th style="text-align:left">最终 Perplexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">随机初始化</td>
+<td style="text-align:left">100% (Baseline)</td>
+<td style="text-align:left">60%</td>
+<td style="text-align:left">2.8</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Dense Warmup</strong></td>
+<td style="text-align:left"><strong>40%</strong> (快2.5倍)</td>
+<td style="text-align:left"><strong>95%</strong></td>
+<td style="text-align:left"><strong>2.3</strong> (更优)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-st-moe-2022-极致稳定与迁移能力">3. ST-MoE (2022): 极致稳定与迁移能力 </h2>
+<p><strong>技术贡献</strong>：Router Z-Loss</p>
+<h3 id="31-为什么需要这个贡献-why">3.1 为什么需要这个贡献 (Why) </h3>
+<p><strong>问题：Router Logits 爆炸 (Logits Explosion)</strong><br>
+随着训练进行，Router 输出的 Logits 数值会不断增大。这会导致 Softmax 后的梯度消失或计算溢出。</p>
+<ul>
+<li>
+<p><strong>数据可视化：训练崩溃曲线</strong></p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>Training Loss
+|
+|      (Crash!)
+|       |
+|       |
+|-------+           (NaN / Inf)
+|       |          .
+|       |         .
+|       \......../
++-------------------------&gt; Steps
+       10k     12k
+</code></pre></li>
+<li>
+<p><strong>形式化推导：梯度异常</strong><br>
+Softmax 的梯度与 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mi>i</mi><mi>t</mi><mi>s</mi></mrow></msup></mrow><annotation encoding="application/x-tex">e^{logits}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8491em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">s</span></span></span></span></span></span></span></span></span></span></span></span> 相关。当 logits 很大（如 100）时：</p>
+<ol>
+<li><strong>数值溢出</strong>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mn>100</mn></msup></mrow><annotation encoding="application/x-tex">e^{100}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">100</span></span></span></span></span></span></span></span></span></span></span></span> 在 fp16/bf16 下可能溢出为 Inf。</li>
+<li><strong>分布极化</strong>：Softmax 输出接近 One-hot <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1.0</mn><mo separator="true">,</mo><mn>0</mn><mo separator="true">,</mo><mn>0...</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[1.0, 0, 0...]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1.0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0...</span><span class="mclose">]</span></span></span></span>，导致梯度为 0，模型停止学习。</li>
+</ol>
+</li>
+</ul>
+<h3 id="32-解决方案-how">3.2 解决方案 (How) </h3>
+<p>ST-MoE 提出了四个核心技术来确保训练稳定性和迁移能力：</p>
+<ol>
+<li><strong>Router Z-Loss</strong>：惩罚 Logits 的 Log-Sum-Exp 值，强制 Logits 保持在较小的数值范围。</li>
+<li><strong>Expert Dropout (30%)</strong>：在 Fine-tuning 时使用更激进的 Dropout 率。</li>
+<li><strong>分阶段训练</strong>：Dense Warmup → MoE 转换 → 全参数微调。</li>
+<li><strong>改进的初始化</strong>：小方差初始化 + 温度退火。</li>
+</ol>
+<h3 id="33-架构图解">3.3 架构图解 </h3>
+<p><strong>ST-MoE 的稳定性设计</strong>：</p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>┌─────────────────────────────────────────────────────────────┐
+│              ST-MoE Layer (带 Z-Loss 约束)                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                               │
+│  [Input: x]                                                  │
+│       ↓                                                       │
+│  ┌──────────────────────────┐                               │
+│  │  Router Network          │                                │
+│  │  (fp32 精度)             │                                │
+│  └──────────────────────────┘                               │
+│       ↓                                                       │
+│  [Logits: z₁, z₂, ..., zₑ]                                  │
+│       ↓                                                       │
+│  ┌──────────────────────────┐                               │
+│  │  Z-Loss 约束              │ ← 关键创新                    │
+│  │  L_z = log²(Σ exp(z_i))  │                               │
+│  │                           │                                │
+│  │  作用：                   │                                │
+│  │  • 限制 logits 幅度       │                                │
+│  │  • 防止数值爆炸           │                                │
+│  │  • 自适应惩罚             │                                │
+│  └──────────────────────────┘                               │
+│       ↓                                                       │
+│  [Softmax → Probs]                                           │
+│       ↓                                                       │
+│  [Top-K Selection + 30% Dropout] ← Fine-tune 时激进          │
+│       ↓                                                       │
+│  ┌─────┴─────┬─────┬─────┐                                  │
+│  │           │     │     │                                   │
+│  E₁         E₂   E₃   ...  Eₙ                               │
+│  │           │     │     │                                   │
+│  └─────┬─────┴─────┴─────┘                                  │
+│       ↓                                                       │
+│  [Output]                                                    │
+│                                                               │
+└─────────────────────────────────────────────────────────────┘
+
+损失函数组合：
+L_total = L_task + λ_balance · L_balance + λ_z · L_z
+          ↑        ↑                        ↑
+        主任务    负载均衡              稳定性约束 (新)
+</code></pre><p><strong>Z-Loss 作用机制可视化</strong>：</p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>无 Z-Loss:                        有 Z-Loss (λ_z=0.001):
+
+Training Steps                    Training Steps
+    ↓                                ↓
+    
+Step 0:                          Step 0:
+Logits: [2, 1, 3, ...]           Logits: [2, 1, 3, ...]
+max: 3 ✓                         max: 3 ✓
+
+Step 5K:                         Step 5K:
+Logits: [15, 8, 12, ...]         Logits: [8, 6, 9, ...]
+max: 15 ⚠️                       max: 9 ✓ (被约束)
+
+Step 10K:                        Step 10K:
+Logits: [89, 45, 67, ...]        Logits: [9, 7, 10, ...]
+max: 89 ⚠️⚠️                     max: 10 ✓ (稳定)
+
+Step 12K:                        Step 12K:
+Logits: [∞, NaN, ...]            Logits: [8, 6, 9, ...]
+训练崩溃 ✗✗                      持续稳定 ✓✓
+    ↓                                ↓
+   NaN                           正常训练 100K+ steps
+</code></pre><p><strong>分阶段训练架构演进</strong>：</p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>═══════════════════════════════════════════════════════════════
+                  ST-MoE 三阶段训练
+═══════════════════════════════════════════════════════════════
+
+阶段 1 (10% steps): Dense Warmup
+┌─────────────────────────────────┐
+│  标准 Dense Transformer          │
+│  24 layers × Dense FFN           │
+│  学习基础表示                    │
+└─────────────────────────────────┘
+         ↓ (保存 checkpoint)
+
+阶段 2 (5% steps): MoE 转换 (渐进解冻)
+┌─────────────────────────────────┐
+│  [Attention Layers] ← 🔒 冻结   │
+│         ↓                        │
+│  [Router] ← 🔓 训练              │
+│         ↓                        │
+│  [Experts] ← 🔓 训练             │
+│   (从 Dense FFN 初始化)          │
+│                                  │
+│  目标：稳定路由学习               │
+└─────────────────────────────────┘
+         ↓
+
+阶段 3 (85% steps): 全参数微调
+┌─────────────────────────────────┐
+│  [Attention] ← 🔓 全部解冻       │
+│  [Router]                        │
+│  [Experts]                       │
+│                                  │
+│  + Z-Loss 约束                   │
+│  + 30% Expert Dropout            │
+│                                  │
+│  结果：稳定收敛，0% 崩溃          │
+└─────────────────────────────────┘
+</code></pre><h3 id="34-形式化表达与数据说明">3.4 形式化表达与数据说明 </h3>
+<p><strong>A. Router Z-Loss 公式</strong></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>L</mi><mi>z</mi></msub><mo>=</mo><msub><mi>λ</mi><mi>z</mi></msub><mo>⋅</mo><msup><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msup><mrow><mo fence="true">(</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msup><mi>e</mi><msub><mi>x</mi><mi>i</mi></msub></msup><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">L_z = \lambda_z \cdot \log^2 \left( \sum_{i=1}^{N} e^{x_i} \right)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:3.106em;vertical-align:-1.2777em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8984em;"><span style="top:-3.1473em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">(</span></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size4">)</span></span></span></span></span></span></span></p>
+<p><strong>B. 梯度分析（直觉）</strong><br>
+为什么是平方？<br>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">∇</mi><msub><mi>L</mi><mi>z</mi></msub><mo>∝</mo><mn>2</mn><mo>⋅</mo><munder><munder><mrow><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mo>∑</mo><msup><mi>e</mi><mi>x</mi></msup><mo stretchy="false">)</mo></mrow><mo stretchy="true">⏟</mo></munder><mtext>数值越大惩罚越重</mtext></munder><mo>⋅</mo><mtext>Softmax</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\nabla L_z \propto 2 \cdot \underbrace{\log(\sum e^x)}_{\text{数值越大惩罚越重}} \cdot \text{Softmax}(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord">∇</span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∝</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.9263em;vertical-align:-1.8763em;"></span><span class="mord munder"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.1737em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight">数值越大惩罚越重</span></span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord munder"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span class="svg-align" style="top:-1.852em;"><span class="pstrut" style="height:3.05em;"></span><span class="stretchy" style="height:0.548em;min-width:1.6em;"><span class="brace-left" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M0 6l6-6h17c12.688 0 19.313.3 20 1 4 4 7.313 8.3 10 13
+ 35.313 51.3 80.813 93.8 136.5 127.5 55.688 33.7 117.188 55.8 184.5 66.5.688
+ 0 2 .3 4 1 18.688 2.7 76 4.3 172 5h399450v120H429l-6-1c-124.688-8-235-61.7
+-331-161C60.687 138.7 32.312 99.3 7 54L0 41V6z"></path></svg></span><span class="brace-center" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M199572 214
+c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
+ 53.3-86.7 123.7-153 211-199 66.7-36 137.3-56.3 212-62h199568v120H200432c-178.3
+ 11.7-311.7 78.3-403 201-6 8-9.7 12-11 12-.7.7-6.7 1-18 1s-17.3-.3-18-1c-1.3 0
+-5-4-11-12-44.7-59.3-101.3-106.3-170-141s-145.3-54.3-229-60H0V214z"></path></svg></span><span class="brace-right" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M399994 0l6 6v35l-6 11c-56 104-135.3 181.3-238 232-57.3
+ 28.7-117 45-179 50H-300V214h399897c43.3-7 81-15 113-26 100.7-33 179.7-91 237
+-174 2.7-5 6-9 10-13 .7-1 7.3-1 20-1h17z"></path></svg></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mop op-symbol large-op" style="position:relative;top:0em;">∑</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.198em;"><span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.8763em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Softmax</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span><br>
+这是一个<strong>自适应</strong>的惩罚项：Logits 越大，梯度的回拉力度越大，强力遏制爆炸。</p>
+<p><strong>数值示例</strong>：</p>
+<pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token comment"># 当 logits 过大时</span>
+x <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span>
+→ log<span class="token punctuation">(</span>Σ exp<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span> ≈ <span class="token number">100</span>
+→ 梯度系数 ≈ <span class="token number">200</span>  <span class="token comment"># 强力回拉</span>
+
+<span class="token comment"># 当 logits 正常时</span>
+x <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span>
+→ log<span class="token punctuation">(</span>Σ exp<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span> ≈ <span class="token number">2.4</span>
+→ 梯度系数 ≈ <span class="token number">4.8</span>  <span class="token comment"># 温和约束</span>
+</code></pre><p><strong>C. 为什么不用 L2 正则？</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">作用方式</th>
+<th style="text-align:left">问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">L2 正则 (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msubsup><mi>x</mi><mi>i</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\sum x_i^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0728em;vertical-align:-0.2587em;"></span><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span></span></span></span>)</td>
+<td style="text-align:left">惩罚所有 logits</td>
+<td style="text-align:left">❌ 破坏专家差异性，Router 失去区分能力</td>
+</tr>
+<tr>
+<td style="text-align:left">Max 限制</td>
+<td style="text-align:left">只约束最大值</td>
+<td style="text-align:left">❌ 梯度只在最大值处，非平滑</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Z-Loss</strong></td>
+<td style="text-align:left">约束整体尺度</td>
+<td style="text-align:left">✅ 保持相对大小，光滑可导</td>
+</tr>
+</tbody>
+</table>
+<p><strong>D. 分阶段训练策略</strong></p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>阶段 1: Dense Warmup (10% steps)
+    [Dense Model] → 学习基础表示
+    
+阶段 2: MoE 转换 (5% steps)
+    复制权重 → 所有 Expert
+    冻结 Attention Layers
+    只训练 FFN + Router
+    
+阶段 3: 全参数微调 (85% steps)
+    解冻所有参数
+    完整 MoE 训练
+</code></pre><p><strong>效果对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">训练策略</th>
+<th style="text-align:left">训练崩溃率</th>
+<th style="text-align:left">收敛速度</th>
+<th style="text-align:left">最终性能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">随机初始化</td>
+<td style="text-align:left">40%</td>
+<td style="text-align:left">100% (baseline)</td>
+<td style="text-align:left">85.2%</td>
+</tr>
+<tr>
+<td style="text-align:left">Dense warmup (5%)</td>
+<td style="text-align:left">20%</td>
+<td style="text-align:left">90%</td>
+<td style="text-align:left">86.1%</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>分阶段训练</strong></td>
+<td style="text-align:left"><strong>0%</strong> ⭐</td>
+<td style="text-align:left"><strong>70%</strong> (快1.4倍)</td>
+<td style="text-align:left"><strong>87.3%</strong> ✓</td>
+</tr>
+</tbody>
+</table>
+<p><strong>E. 训练稳定性效果</strong></p>
+<ul>
+<li>训练稳定性从 30% 提升至 <strong>100%</strong>（无崩溃）。</li>
+<li>使得在微调（Fine-tuning）阶段使用高学习率成为可能。</li>
+<li>Fine-tune 成功率：30% → <strong>95%</strong></li>
+</ul>
+<p><strong>F. 迁移学习性能提升</strong></p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>任务迁移实验（ImageNet → CIFAR-10）:
+
+传统 MoE:  75.3%  ████████████████
+ST-MoE:    91.2%  ████████████████████████████  (+15.9% ⭐)
+
+跨语言迁移（英语 → 中文）:
+
+传统 MoE:  68.5%  ██████████████
+ST-MoE:    79.8%  ████████████████████  (+11.3% ⭐)
+</code></pre><hr>
+<h2 id="4-deepseek-moe-2024-迈向极致专业化">4. DeepSeek-MoE (2024): 迈向极致专业化 </h2>
+<p><strong>技术贡献</strong>：细粒度专家（Fine-grained）与共享专家（Shared Experts）</p>
+<h3 id="41-为什么需要这个贡献-why">4.1 为什么需要这个贡献 (Why) </h3>
+<p><strong>问题 1：知识混合带来的冗余 (Knowledge Hybridity)</strong><br>
+在传统 MoE（如 Mixtral 8x7B）中，专家数量较少（8个），每个专家参数量巨大（7B）。这导致每个专家都被迫学习"大杂烩"知识。</p>
+<ul>
+<li><strong>集合图解：知识重叠</strong><pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>Expert A (7B)           Expert B (7B)
++-------------------+   +-------------------+
+| [通用语法知识]      |---| [通用语法知识]      | &lt;-- 冗余！(Redundancy)
+| [Python 代码]     |   | [Java 代码]       |
++-------------------+   +-------------------+
+</code></pre><strong>后果</strong>：大部分参数被浪费在重复存储通用知识上，难以做到极致的专业化。</li>
+</ul>
+<p><strong>问题 2：激活参数与性能的矛盾</strong></p>
+<ul>
+<li>
+<p><strong>形式化分析</strong>：</p>
+<p><strong>传统 MoE</strong> (如 Mixtral 8×7B, Top-2):<br>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Total&nbsp;Params</mtext><mo>=</mo><mn>8</mn><mo>×</mo><mn>7</mn><mi>B</mi><mo>=</mo><mn>56</mn><mi>B</mi><mspace linebreak="newline"></mspace><mtext>Activated&nbsp;Params</mtext><mo>=</mo><mn>2</mn><mo>×</mo><mn>7</mn><mi>B</mi><mo>=</mo><mn>14</mn><mi>B</mi></mrow><annotation encoding="application/x-tex">\text{Total Params} = 8 \times 7B = 56B \\
+\text{Activated Params} = 2 \times 7B = 14B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">Total&nbsp;Params</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">7</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">56</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">Activated&nbsp;Params</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">7</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">14</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span></span></p>
+<p>问题：为了保持性能，需要激活大量参数（14B），推理成本高。</p>
+<p><strong>理想情况</strong>：</p>
+<ul>
+<li>总参数更多（更强的表达能力）</li>
+<li>激活参数更少（更快的推理速度）</li>
+<li>专家更专业化（更好的泛化）</li>
+</ul>
+</li>
+</ul>
+<h3 id="42-解决方案-how">4.2 解决方案 (How) </h3>
+<ol>
+<li><strong>细粒度切分</strong>：将大专家切碎（例如 1个 7B -&gt; 8个 0.9B）。</li>
+<li><strong>共享专家</strong>：把通用知识剥离出来，由固定激活的 Shared Expert 负责。</li>
+</ol>
+<h3 id="43-架构图解">4.3 架构图解 </h3>
+<p><strong>DeepSeek-MoE 创新架构</strong>：</p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>┌─────────────────────────────────────────────────────────────────┐
+│                  DeepSeek-MoE Layer 架构                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│  [Input Token: x]                                                │
+│         │                                                         │
+│         ├─────────────────────────────────┐                     │
+│         │                                  │                      │
+│         ↓ (分支1: 通用基座)                ↓ (分支2: 专业技能)   │
+│  ┌─────────────────┐              ┌──────────────┐              │
+│  │  Shared Expert  │              │   Router     │              │
+│  │  (Always Active)│              │  (Top-K 选择)│              │
+│  │                 │              └──────────────┘              │
+│  │  职责：          │                     ↓                      │
+│  │  • 语法规则      │              Select K=6 from 64            │
+│  │  • 常识推理      │                     │                      │
+│  │  • 基础逻辑      │         ┌───────────┼───────────┐         │
+│  │                 │         │           │           │          │
+│  │  参数：2B       │    Micro-E₁   Micro-E₂   ...  Micro-E₆₄   │
+│  └─────────────────┘     (0.9B)    (0.9B)         (0.9B)       │
+│         │                     │           │           │          │
+│         │                ┌────┴───────────┴───────────┴────┐   │
+│         │                │  职责：极致专业化                │   │
+│         │                │  • Micro-E₁: Python for 循环     │   │
+│         │                │  • Micro-E₂: 二次方程求解        │   │
+│         │                │  • Micro-E₃: 二战历史事件        │   │
+│         │                │  ...                             │   │
+│         │                └──────────────────────────────────┘   │
+│         ↓                                  ↓                     │
+│  [Shared Output]                  [Routed Output]               │
+│         │                                  │                     │
+│         └──────────────┬───────────────────┘                    │
+│                        ↓ (相加)                                  │
+│              y = Shared(x) + Σ gᵢ·Eᵢ(x)                        │
+│                        ↓                                         │
+│                   [Final Output]                                │
+│                                                                   │
+└─────────────────────────────────────────────────────────────────┘
+
+激活参数计算：
+Shared: 2B (100% 激活)
+Routed: 6 × 0.9B = 5.4B (从 64 个中选 6 个)
+──────────────────────
+Total Activated: 7.4B ✓
+
+对比 Mixtral 8×7B (Top-2):
+Activated: 2 × 7B = 14B
+→ DeepSeek-MoE 节省 47% 激活参数！
+</code></pre><p><strong>知识解耦可视化对比</strong>：</p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>═══════════════════════════════════════════════════════════════════
+         传统 MoE (Mixtral 8×7B)
+═══════════════════════════════════════════════════════════════════
+
+每个专家都是"全能型"：
+
+┌───────────────────┐  ┌───────────────────┐  ┌───────────────────┐
+│    Expert 1 (7B)  │  │   Expert 2 (7B)   │  │   Expert 3 (7B)   │
+├───────────────────┤  ├───────────────────┤  ├───────────────────┤
+│ 通用语法    30%   │  │ 通用语法    28%   │  │ 通用语法    29%   │ ← 重复
+│ 常识推理    20%   │  │ 常识推理    22%   │  │ 常识推理    21%   │ ← 重复
+│ Python      15%   │  │ Java        18%   │  │ C++         16%   │
+│ 数学        10%   │  │ 历史        12%   │  │ 物理        11%   │
+│ 其他        25%   │  │ 其他        20%   │  │ 其他        23%   │
+└───────────────────┘  └───────────────────┘  └───────────────────┘
+      ↑                       ↑                       ↑
+    冗余 50%                冗余 50%                冗余 50%
+
+问题：56B 参数中，~30B 被浪费在重复存储通用知识上！
+
+═══════════════════════════════════════════════════════════════════
+         DeepSeek-MoE (64×0.9B + Shared 2B)
+═══════════════════════════════════════════════════════════════════
+
+知识解耦：通用 vs 专业
+
+┌─────────────────────────────────────┐
+│      Shared Expert (2B)             │  ← 通用基座
+├─────────────────────────────────────┤
+│  • 语法规则          40%            │
+│  • 常识推理          30%            │
+│  • 基础逻辑          20%            │
+│  • 通用模式          10%            │
+└─────────────────────────────────────┘
+              ↓ (Always Active)
+          [通用能力基座]
+
+┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
+│Micro-E₁  │ │Micro-E₂  │ │Micro-E₃  │ │Micro-E₄  │ ... (64个)
+│(0.9B)    │ │(0.9B)    │ │(0.9B)    │ │(0.9B)    │
+├──────────┤ ├──────────┤ ├──────────┤ ├──────────┤
+│Python    │ │二次方程  │ │二战历史  │ │量子力学  │ ← 极致专业化
+│for 循环  │ │求解      │ │事件      │ │薛定谔方程│
+│95% 专注  │ │90% 专注  │ │92% 专注  │ │88% 专注  │
+└──────────┘ └──────────┘ └──────────┘ └──────────┘
+     ↑            ↑            ↑            ↑
+  零冗余       零冗余       零冗余       零冗余
+
+优势：
+✓ 通用知识只存储一次（2B Shared）
+✓ 专家极致专业化（64 个细分领域）
+✓ 参数利用率接近 100%
+</code></pre><p><strong>前向传播流程对比</strong>：</p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>传统 MoE 推理:                    DeepSeek-MoE 推理:
+
+[Token: "Explain quicksort"]    [Token: "Explain quicksort"]
+         ↓                                ↓
+    [Router]                         ┌─────┴─────┐
+         ↓                           ↓           ↓
+  Select Top-2                   [Shared]    [Router]
+         ↓                           ↓           ↓
+  ┌──────┴──────┐                 通用基座   Select Top-6
+  ↓             ↓                   ↓           ↓
+Expert₁(7B)  Expert₂(7B)         语法/逻辑  Python专家×6
+  ↓             ↓                   ↓           ↓
+都包含通用知识                     ↓       算法/排序/...
+  ↓                                  └─────┬─────┘
+激活: 14B                                  ↓
+                                    激活: 2B + 5.4B = 7.4B ✓
+                                    
+性能相当，但激活参数少 47%！
+</code></pre><h3 id="44-形式化表达与图形说明">4.4 形式化表达与图形说明 </h3>
+<p><strong>A. 路由策略公式</strong></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><munder><munder><mrow><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>S</mi></mrow></munder><msub><mi>E</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mo stretchy="true">⏟</mo></munder><mtext>Shared&nbsp;(通用基座)</mtext></munder><mo>+</mo><munder><munder><mrow><munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><mi>T</mi><mi>o</mi><mi>p</mi><mi>K</mi><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></munder><msub><mi>g</mi><mi>j</mi></msub><mo>⋅</mo><msub><mi>E</mi><mi>j</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mo stretchy="true">⏟</mo></munder><mtext>Routed&nbsp;(专业技能)</mtext></munder></mrow><annotation encoding="application/x-tex">y = \underbrace{\sum_{i \in S} E_i(x)}_{\text{Shared (通用基座)}} + \underbrace{\sum_{j \in TopK(r)} g_j \cdot E_j(x)}_{\text{Routed (专业技能)}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.9197em;vertical-align:-2.8697em;"></span><span class="mord munder"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-0.3553em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">Shared&nbsp;(</span><span class="mord cjk_fallback mtight">通用基座</span><span class="mord mtight">)</span></span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord munder"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span class="svg-align" style="top:-1.0803em;"><span class="pstrut" style="height:3.05em;"></span><span class="stretchy" style="height:0.548em;min-width:1.6em;"><span class="brace-left" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M0 6l6-6h17c12.688 0 19.313.3 20 1 4 4 7.313 8.3 10 13
+ 35.313 51.3 80.813 93.8 136.5 127.5 55.688 33.7 117.188 55.8 184.5 66.5.688
+ 0 2 .3 4 1 18.688 2.7 76 4.3 172 5h399450v120H429l-6-1c-124.688-8-235-61.7
+-331-161C60.687 138.7 32.312 99.3 7 54L0 41V6z"></path></svg></span><span class="brace-center" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M199572 214
+c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
+ 53.3-86.7 123.7-153 211-199 66.7-36 137.3-56.3 212-62h199568v120H200432c-178.3
+ 11.7-311.7 78.3-403 201-6 8-9.7 12-11 12-.7.7-6.7 1-18 1s-17.3-.3-18-1c-1.3 0
+-5-4-11-12-44.7-59.3-101.3-106.3-170-141s-145.3-54.3-229-60H0V214z"></path></svg></span><span class="brace-right" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M399994 0l6 6v35l-6 11c-56 104-135.3 181.3-238 232-57.3
+ 28.7-117 45-179 50H-300V214h399897c43.3-7 81-15 113-26 100.7-33 179.7-91 237
+-174 2.7-5 6-9 10-13 .7-1 7.3-1 20-1h17z"></path></svg></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3217em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9697em;"><span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.8697em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:4.114em;vertical-align:-3.064em;"></span><span class="mord munder"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-0.161em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">Routed&nbsp;(</span><span class="mord cjk_fallback mtight">专业技能</span><span class="mord mtight">)</span></span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord munder"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span class="svg-align" style="top:-0.886em;"><span class="pstrut" style="height:3.05em;"></span><span class="stretchy" style="height:0.548em;min-width:1.6em;"><span class="brace-left" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M0 6l6-6h17c12.688 0 19.313.3 20 1 4 4 7.313 8.3 10 13
+ 35.313 51.3 80.813 93.8 136.5 127.5 55.688 33.7 117.188 55.8 184.5 66.5.688
+ 0 2 .3 4 1 18.688 2.7 76 4.3 172 5h399450v120H429l-6-1c-124.688-8-235-61.7
+-331-161C60.687 138.7 32.312 99.3 7 54L0 41V6z"></path></svg></span><span class="brace-center" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M199572 214
+c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
+ 53.3-86.7 123.7-153 211-199 66.7-36 137.3-56.3 212-62h199568v120H200432c-178.3
+ 11.7-311.7 78.3-403 201-6 8-9.7 12-11 12-.7.7-6.7 1-18 1s-17.3-.3-18-1c-1.3 0
+-5-4-11-12-44.7-59.3-101.3-106.3-170-141s-145.3-54.3-229-60H0V214z"></path></svg></span><span class="brace-right" style="height:0.548em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M399994 0l6 6v35l-6 11c-56 104-135.3 181.3-238 232-57.3
+ 28.7-117 45-179 50H-300V214h399897c43.3-7 81-15 113-26 100.7-33 179.7-91 237
+-174 2.7-5 6-9 10-13 .7-1 7.3-1 20-1h17z"></path></svg></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span class="mord"><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.809em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">p</span><span class="mord mathnormal mtight" style="margin-right:0.07153em;">K</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.516em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.164em;"><span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:3.064em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p><strong>B. 优势数据</strong></p>
+<p><strong>参数效率对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模型</th>
+<th style="text-align:left">总参数</th>
+<th style="text-align:left">激活参数</th>
+<th style="text-align:left">激活比例</th>
+<th style="text-align:left">HumanEval (代码)</th>
+<th style="text-align:left">GSM8K (数学)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Llama 2 70B (Dense)</td>
+<td style="text-align:left">70B</td>
+<td style="text-align:left">70B</td>
+<td style="text-align:left">100%</td>
+<td style="text-align:left">29.9%</td>
+<td style="text-align:left">56.8%</td>
+</tr>
+<tr>
+<td style="text-align:left">Mixtral 8×7B</td>
+<td style="text-align:left">56B</td>
+<td style="text-align:left">14B</td>
+<td style="text-align:left">25%</td>
+<td style="text-align:left">40.2%</td>
+<td style="text-align:left">74.4%</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>DeepSeek-MoE</strong></td>
+<td style="text-align:left">145B</td>
+<td style="text-align:left">16B</td>
+<td style="text-align:left"><strong>11%</strong></td>
+<td style="text-align:left"><strong>45.0%</strong> ⭐</td>
+<td style="text-align:left"><strong>79.2%</strong> ⭐</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键洞察</strong>：</p>
+<ul>
+<li>更多总参数（145B &gt; 70B）→ 更强表达能力</li>
+<li>更少激活参数（16B &lt; 70B）→ 更快推理速度</li>
+<li>性能超越密集模型，证明了<strong>解耦通用与专业知识</strong>的有效性</li>
+</ul>
+<p><strong>C. 专家专业化可视化</strong></p>
+<pre data-role="codeBlock" data-info="ascii" class="language-ascii ascii"><code>传统 MoE (8×7B):
+Expert 1: [通用30% | Python20% | Math10% | 历史5% | ...]
+Expert 2: [通用28% | Java18% | Math12% | 地理6% | ...]
+...
+→ 知识高度重叠，专业化不足
+
+DeepSeek-MoE (64×0.9B + Shared):
+Shared:    [通用语法 40% | 常识推理 30% | ...]  ← 通用基座
+Expert 1:  [Python: for循环优化 95%]           ← 极致专业化
+Expert 2:  [二次方程求解 90%]
+Expert 3:  [二战历史 92%]
+...
+→ 通用知识共享，专家极致专业化
+</code></pre><hr>
+<h2 id="总结">总结 </h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模型</th>
+<th style="text-align:left">年份</th>
+<th style="text-align:left">核心痛点 (Why)</th>
+<th style="text-align:left">关键技术 (Key Contribution)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Switch Transformer</strong></td>
+<td style="text-align:left">2021</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mi>K</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(NK)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mclose">)</span></span></span></span> 通信瓶颈、bf16 数值不稳</td>
+<td style="text-align:left">Top-1 路由、fp32 Router</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>GLaM</strong></td>
+<td style="text-align:left">2021</td>
+<td style="text-align:left">赢者通吃、负载极度不均</td>
+<td style="text-align:left">Dense Warmup、Expert Dropout</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ST-MoE</strong></td>
+<td style="text-align:left">2022</td>
+<td style="text-align:left">Logits 爆炸导致 Softmax 失效</td>
+<td style="text-align:left"><strong>Router Z-Loss</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>DeepSeek-MoE</strong></td>
+<td style="text-align:left">2024</td>
+<td style="text-align:left">大专家知识耦合、参数冗余</td>
+<td style="text-align:left"><strong>Shared Experts + Fine-grained Experts</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="参考文献">参考文献 </h2>
+<ol>
+<li>
+<p><strong>Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity</strong><br>
+<em>William Fedus, Barret Zoph, Noam Shazeer (Google Brain, 2021)</em><br>
+arXiv:2101.03961<br>
+<a href="https://arxiv.org/abs/2101.03961">论文链接</a></p>
+</li>
+<li>
+<p><strong>GLaM: Efficient Scaling of Language Models with Mixture-of-Experts</strong><br>
+<em>Nan Du, Yanping Huang, et al. (Google, 2021)</em><br>
+arXiv:2112.06905<br>
+<a href="https://arxiv.org/abs/2112.06905">论文链接</a></p>
+</li>
+<li>
+<p><strong>ST-MoE: Designing Stable and Transferable Sparse Expert Models</strong><br>
+<em>Barret Zoph, Irwan Bello, et al. (Google Research, 2022)</em><br>
+arXiv:2202.08906<br>
+<a href="https://arxiv.org/abs/2202.08906">论文链接</a></p>
+</li>
+<li>
+<p><strong>Mixtral of Experts</strong><br>
+<em>Albert Q. Jiang, Alexandre Sablayrolles, et al. (Mistral AI, 2024)</em><br>
+arXiv:2401.04088<br>
+<a href="https://arxiv.org/abs/2401.04088">论文链接</a></p>
+</li>
+<li>
+<p><strong>DeepSeek-MoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models</strong><br>
+<em>DeepSeek-AI (2024)</em><br>
+arXiv:2401.06066<br>
+<a href="https://arxiv.org/abs/2401.06066">论文链接</a></p>
+</li>
+</ol>
+<hr>
+<h2 id="附录关键技术对比">附录：关键技术对比 </h2>
+<h3 id="a-负载均衡策略演进">A. 负载均衡策略演进 </h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">技术</th>
+<th style="text-align:left">均衡损失公式</th>
+<th style="text-align:left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GShard (2020)</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>f</mi><mi>i</mi></msub><mo>⋅</mo><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum f_i \cdot P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align:left">基础版本</td>
+</tr>
+<tr>
+<td style="text-align:left">Switch (2021)</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>⋅</mo><mi>N</mi><mo>⋅</mo><mo>∑</mo><msub><mi>f</mi><mi>i</mi></msub><mo>⋅</mo><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\lambda \cdot N \cdot \sum f_i \cdot P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align:left">加入批次归一化</td>
+</tr>
+<tr>
+<td style="text-align:left">GLaM (2021)</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><msub><mi>λ</mi><mn>2</mn></msub><mo>⋅</mo><mtext>Var</mtext><mo stretchy="false">(</mo><msub><mi>f</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>+</mo><msub><mi>λ</mi><mn>3</mn></msub><mo>⋅</mo><mo stretchy="false">(</mo><mi>max</mi><mo>⁡</mo><msub><mi>f</mi><mi>i</mi></msub><mo>−</mo><mi>min</mi><mo>⁡</mo><msub><mi>f</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">+ \lambda_2 \cdot \text{Var}(f_i) + \lambda_3 \cdot (\max f_i - \min f_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord">+</span><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Var</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mop">max</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></td>
+<td style="text-align:left">方差和极值约束</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b-稳定性技术对比">B. 稳定性技术对比 </h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">问题</th>
+<th style="text-align:left">Switch</th>
+<th style="text-align:left">GLaM</th>
+<th style="text-align:left">ST-MoE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">数值稳定性</td>
+<td style="text-align:left">✅ fp32 Router</td>
+<td style="text-align:left">✅ 继承</td>
+<td style="text-align:left">✅ 继承 + Z-Loss</td>
+</tr>
+<tr>
+<td style="text-align:left">初始化</td>
+<td style="text-align:left">❌ 随机</td>
+<td style="text-align:left">✅ Dense Warmup</td>
+<td style="text-align:left">✅ 分阶段训练</td>
+</tr>
+<tr>
+<td style="text-align:left">泛化能力</td>
+<td style="text-align:left">❌ 无特殊处理</td>
+<td style="text-align:left">✅ 10% Dropout</td>
+<td style="text-align:left">✅ 30% Dropout</td>
+</tr>
+<tr>
+<td style="text-align:left">Fine-tune</td>
+<td style="text-align:left">❌ 不稳定</td>
+<td style="text-align:left">⚠️ 部分支持</td>
+<td style="text-align:left">✅ 完全支持</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c-架构设计对比">C. 架构设计对比 </h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模型</th>
+<th style="text-align:left">专家数量</th>
+<th style="text-align:left">专家大小</th>
+<th style="text-align:left">路由策略</th>
+<th style="text-align:left">特殊设计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Switch</td>
+<td style="text-align:left">2048</td>
+<td style="text-align:left">小</td>
+<td style="text-align:left">Top-1</td>
+<td style="text-align:left">简化路由</td>
+</tr>
+<tr>
+<td style="text-align:left">GLaM</td>
+<td style="text-align:left">64</td>
+<td style="text-align:left">大</td>
+<td style="text-align:left">Top-2</td>
+<td style="text-align:left">改进初始化</td>
+</tr>
+<tr>
+<td style="text-align:left">Mixtral</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">7B</td>
+<td style="text-align:left">Top-2</td>
+<td style="text-align:left">高质量数据</td>
+</tr>
+<tr>
+<td style="text-align:left">DeepSeek-MoE</td>
+<td style="text-align:left">64</td>
+<td style="text-align:left">0.9B</td>
+<td style="text-align:left">Top-K</td>
+<td style="text-align:left">Shared Experts</td>
+</tr>
+</tbody>
+</table>
+
+      </div>
+      
+      
+    
+    
+    <script type="module">
+// TODO: If ZenUML gets integrated into mermaid in the future,
+//      we can remove the following lines.
+
+
+var MERMAID_CONFIG = ({"startOnLoad":false});
+if (typeof MERMAID_CONFIG !== 'undefined') {
+  MERMAID_CONFIG.startOnLoad = false
+  MERMAID_CONFIG.cloneCssStyles = false
+  MERMAID_CONFIG.theme = "default"
+}
+
+mermaid.initialize(MERMAID_CONFIG || {})
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+  Reveal.addEventListener('slidetransitionend', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+} else {
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+}
+</script>
+    
+    
+    
+  
+    </body></html>
