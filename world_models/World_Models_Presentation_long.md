@@ -21,6 +21,53 @@ style: |
     font-size: 0.85em;
   }
   .katex { font-size: 1.1em; }
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .box {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #f9fafb;
+    font-size: 0.9em;
+  }
+  .q {
+    border-left: 4px solid #2563eb;
+  }
+  .a {
+    border-left: 4px solid #16a34a;
+  }
+  .checklist {
+    background: #ecfdf5;
+    border: 1px solid #10b981;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+  .checklist ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  .checklist li:before {
+    content: "✅ ";
+    margin-right: 0.5em;
+  }
+  .analogy {
+    background: #fffbeb;
+    border: 1px solid #f59e0b;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-top: 1rem;
+  }
+  .thought {
+    background: #eff6ff;
+    border-left: 5px solid #3b82f6;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+  }
 ---
 
 <!-- _class: lead -->
@@ -109,6 +156,31 @@ style: |
 - 只需少量真实数据学习世界模型
 - 在想象中生成无限训练数据
 - 策略迁移到真实环境
+
+---
+
+# 苏格拉底式提问：从 DQN 到 World Models
+
+<div class="columns">
+<div class="box q">
+
+**Q1.** 如果每次和真实环境交互都要花很多钱/时间，你还会怎么设计 RL？  
+**Q2.** 如果有人送你一个完美模拟器，你会不会**先在模拟器里学，再上真机**？  
+**Q3.** 那能不能连模拟器也一起学出来？
+
+</div>
+<div class="box a">
+
+**引导答案（讨论用）**  
+
+- DQN: 把环境当作"只能在线调用的黑盒"，想学好只能多试。  
+- World Models: 先把这个黑盒"白盒化"成 `model(s, a) -> (s', r)`，再在里面大量试错。  
+- 好处：  
+  - 真实世界只承担"采样世界模型"的工作  
+  - 大部分策略优化都转移到 GPU 上的"梦境"中完成
+
+</div>
+</div>
 
 ---
 
@@ -342,6 +414,29 @@ $$\pi'_k = \frac{\pi_k^{1/\tau}}{\sum_j \pi_j^{1/\tau}}, \quad z \sim \mathcal{N
 <!-- _class: lead -->
 # Part 4
 ## 训练流程
+
+---
+
+# 训练流程：用"学开车"做类比
+
+<div class="analogy">
+
+**故事场景：你要在一个空荡荡的停车场学会漂移。**
+
+1.  **Stage 1 (数据收集): 瞎开一通**
+    *   你闭着眼乱踩油门、乱打方向，让人在旁边录像。
+    *   目标：收集"我做了动作X，车身发生了什么变化Y"的原始素材。
+
+2.  **Stage 2 (训练世界模型): 回家看录像 & 脑补**
+    *   回家躺在床上，回看录像（训练 VAE）。
+    *   然后在脑子里总结规律（训练 RNN）："如果我当时猛打左舵，车头应该往左甩"。
+
+3.  **Stage 3 (梦境训练): 脑内模拟赛**
+    *   不去现场，直接在脑子里想象开车。
+    *   在脑海中试错千万次，找到那个能漂移最远的操作习惯（训练 Controller）。
+    *   最后：上真车，验证一下脑子里的招数管不管用。
+
+</div>
 
 ---
 
@@ -677,6 +772,31 @@ class Controller:
 
 ---
 
+# 互动预测：CartPole 为什么会失败？
+
+<div class="columns">
+<div class="box q">
+
+**场景设定**
+- CartPole (倒立摆) 是一个极简单的任务（状态只有 4 维）。
+- CarRacing 是复杂的视觉任务（几千维像素）。
+- World Models 在 CarRacing 上成功了，但在 CartPole 上却**惨败**。
+
+**请大家猜猜原因？**
+1. 是因为 CartPole 只有 4 维，太简单不需要压缩？
+2. 是因为随机策略收集的数据有问题？
+3. 还是因为模型预测的微小误差在长序列中被放大了？
+</div>
+
+<div class="box thought">
+
+**提示**：想象你在平衡一根筷子。如果你的眼睛（感知）或者大脑（预测）有一丁点延迟或误差，筷子会怎样？
+
+</div>
+</div>
+
+---
+
 # 实验洞察：CartPole 的教训
 
 ## CartPole 上的 World Model 实验
@@ -763,6 +883,75 @@ DreamerV2 (2021)
 DreamerV3 (2023)
   - 通用架构，无需任务特定调参
 ```
+
+---
+
+# 另一条路线：Decision Transformer
+
+### 核心思想：把 RL 变成序列建模
+
+```
+传统 RL (World Models/Dreamer):
+  学习 P(s'|s,a)，在想象中规划
+
+Decision Transformer:
+  把轨迹看成序列: τ = (R̂₁, s₁, a₁, R̂₂, s₂, a₂, ...)
+  学习 P(aₜ | R̂ₜ, sₜ, 历史)
+
+  R̂ₜ = Return-to-Go = 从 t 到结束的累积奖励
+```
+
+**关键洞察：不预测"最优动作"，而是"想要 X 分时该怎么做"**
+
+---
+
+# Credit Assignment: TD vs DT
+
+### 类比：RNN vs Transformer 的信息传播
+
+```
+TD Learning (类似 RNN):
+─────────────────────────────────────────────
+t=1    t=2    t=3    ...    t=99   t=100 ✓
+ │      │      │              │      │
+ └──────┴──────┴──────────────┴──────┘
+           奖励必须逐步反向传播
+
+V(s₉₉) ← r + γV(s₁₀₀)
+V(s₉₈) ← r + γV(s₉₉)
+...需要 99 次迭代！误差逐步累积
+
+
+Decision Transformer (类似 Transformer):
+─────────────────────────────────────────────
+t=1    t=2    t=3    ...    t=99   t=100
+ │      │      │              │      │
+ └──────┴──────┴──────────────┴──────┘
+           │ Self-Attention │
+           └────────────────┘
+        任意位置直接建立关联！
+
+s₁ 直接 attend 到 R̂₁ (最终回报)
+一次前向传播，全局信息
+```
+
+---
+
+# World Models vs Decision Transformer
+
+| 维度 | World Models/Dreamer | Decision Transformer |
+|:---|:---|:---|
+| **核心思想** | 学习世界如何运转 | 学习好轨迹长什么样 |
+| **学习目标** | 状态转移 P(s'｜s,a) | 动作生成 P(a｜R̂,s) |
+| **是否学世界模型** | 是 | 否 |
+| **能否 Planning** | 是（想象中规划） | 否 |
+| **能否超越数据** | 是（想象中探索） | 否（受限于数据） |
+| **Credit Assignment** | Bellman backup | Self-Attention |
+| **稀疏奖励** | 困难 | 自然处理 |
+
+**本质区别：**
+- World Models: "理解世界" → 想象 → 决策
+- Decision Transformer: "模仿成功" → 条件生成
 
 ---
 

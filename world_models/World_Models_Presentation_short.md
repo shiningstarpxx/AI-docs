@@ -21,6 +21,53 @@ style: |
     font-size: 0.85em;
   }
   .katex { font-size: 1.1em; }
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .box {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #f9fafb;
+    font-size: 0.9em;
+  }
+  .q {
+    border-left: 4px solid #2563eb;
+  }
+  .a {
+    border-left: 4px solid #16a34a;
+  }
+  .checklist {
+    background: #ecfdf5;
+    border: 1px solid #10b981;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+  .checklist ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  .checklist li:before {
+    content: "✅ ";
+    margin-right: 0.5em;
+  }
+  .analogy {
+    background: #fffbeb;
+    border: 1px solid #f59e0b;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-top: 1rem;
+  }
+  .thought {
+    background: #eff6ff;
+    border-left: 5px solid #3b82f6;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+  }
 ---
 
 <!-- _class: lead -->
@@ -51,6 +98,16 @@ style: |
 3. **训练流程与实验结果**：从数据到梦境
 4. **局限与后续工作**：Dreamer 及其改进
 5. **总结 & Q&A**
+
+---
+
+# 一分钟 Feynman 版解释
+
+> 假设你要向一个**刚学完高一数学**的同学解释 World Models，可以这样说：
+
+1. 我们先学会一个"压缩并预测"游戏世界的模型：看到当前画面，猜下一帧会怎样。
+2. 然后只在这个学到的"脑内模拟器"里反复试错，寻找高奖励的操作策略。
+3. 最后把在模拟器里学到的策略拿回真实环境，如果模型足够准，现实中也能跑得很好。
 
 ---
 
@@ -102,6 +159,34 @@ style: |
 - 少量真实数据学习世界模型
 - 在想象中生成大量训练数据
 - 策略迁移到真实环境
+
+---
+
+# 苏格拉底式追问：为什么要世界模型？
+
+<div class="columns">
+<div class="box q">
+
+**问题 1**  
+如果每一次尝试都很贵（机器人、自动驾驶），还能像 DQN 一样疯狂试错吗？
+
+**问题 2**  
+如果不给你真实环境，只给你一个高拟真的"模拟器"，你能在里面先练吗？
+
+**问题 3**  
+那下一步：我们能让智能体**自己学出**这个"模拟器"吗？
+</div>
+<div class="box a">
+
+**讨论思路**  
+
+- 现实世界 ≈ 一个昂贵的黑盒函数：`env(s, a) -> (s', r)`  
+- 世界模型 = 去学习一个便宜的"白盒近似"：`model(s, a) -> (s', r)`  
+- 一旦有了白盒，就可以：  
+  - 便宜地生成更多训练数据  
+  - 在不同假设下做"如果我这样做，会发生什么？"的推演
+</div>
+</div>
 
 ---
 
@@ -163,6 +248,19 @@ $$P(s_{t+1}, r_t \mid s_t, a_t)$$
 
 - 概率潜在空间，更规整，方便采样和插值
 - 适合在 latent 空间 roll out
+
+---
+
+# VAE：给 12 岁小朋友的解释
+
+- 想象你把一张 64×64 的游戏截图压缩成一张**小卡片**，上面只写下"对开车有用的信息"：  
+  - 赛道弯在哪里、车在什么位置、速度大概多快
+- VAE 在做两件事：  
+  1. 学会把图片变成小卡片（Encoder）  
+  2. 再把小卡片还原成图片（Decoder），要求肉眼看起来还像原图
+- 训练好之后：  
+  - 我们不再直接处理图片，而是处理小卡片 `z`  
+  - 世界模型只需要预测"小卡片怎么变"，问题变得更简单
 
 ---
 
@@ -270,9 +368,59 @@ action = W @ [z, h] + b   # 线性变换
 
 ---
 
+# V-M-C 架构自测：你能复述数据流吗？
+
+<div class="columns">
+<div class="box q">
+
+**如果不看图，请尝试回答：**
+
+1. 智能体现在的**眼睛**看到一帧画面 $x_t$，第一步去哪？
+2. 怎么结合**过去的记忆** $h_{t-1}$？
+3. **大脑**在做决策时，到底用了哪些信息？
+4. 决策做完动作 $a_t$ 后，谁负责**想象**下一帧？
+
+</div>
+<div class="box checklist">
+
+**参考答案**
+
+- **V (Encoder)**: $x_t \to z_t$ (压缩)
+- **M (RNN)**: $[z_t, a_{t-1}, h_{t-1}] \to h_t$ (更新记忆)
+- **C (Controller)**: $[z_t, h_t] \to a_t$ (基于当前感知+记忆做决策)
+- **M (MDN)**: $h_t \to P(z_{t+1})$ (预测未来)
+
+</div>
+</div>
+
+---
+
 <!-- _class: lead -->
 # Part 3
 ## 训练流程 & 梦境 Rollout
+
+---
+
+# 训练流程：用"学开车"做类比
+
+<div class="analogy">
+
+**故事场景：你要在一个空荡荡的停车场学会漂移。**
+
+1.  **Stage 1 (数据收集): 瞎开一通**
+    *   你闭着眼乱踩油门、乱打方向，让人在旁边录像。
+    *   目标：收集"我做了动作X，车身发生了什么变化Y"的原始素材。
+
+2.  **Stage 2 (训练世界模型): 回家看录像 & 脑补**
+    *   回家躺在床上，回看录像（训练 VAE）。
+    *   然后在脑子里总结规律（训练 RNN）："如果我当时猛打左舵，车头应该往左甩"。
+
+3.  **Stage 3 (梦境训练): 脑内模拟赛**
+    *   不去现场，直接在脑子里想象开车。
+    *   在脑海中试错千万次，找到那个能漂移最远的操作习惯（训练 Controller）。
+    *   最后：上真车，验证一下脑子里的招数管不管用。
+
+</div>
 
 ---
 
@@ -384,6 +532,32 @@ def dream_rollout(controller):
 
 ---
 
+# 思考题：如果梦境是错的？
+
+<div class="columns">
+<div class="box q">
+
+**思想实验**
+
+假设你在脑海中认为："只要踩刹车，车速就会变快"（错误的物理规律）。
+
+你在梦里训练出的策略会是什么样？
+</div>
+
+<div class="box a">
+
+**推演结果**
+
+- 你会拼命踩刹车，因为在你的梦里这能拿高分。
+- **现实中**：车停了，比赛输了。
+- **结论**：**Agent 会利用世界模型的漏洞作弊。**
+  - 这就是 **Dream-Reality Gap** 的根源。
+  - 也是为什么我们需要偶尔回到真实世界校准模型。
+</div>
+</div>
+
+---
+
 <!-- _class: lead -->
 # Part 4
 ## 实验结果 & 局限
@@ -453,7 +627,39 @@ def dream_rollout(controller):
 
 <!-- _class: lead -->
 # Part 5
-## Dreamer 及后续发展
+## 另一条路线与后续发展
+
+---
+
+# 另一条路线：Decision Transformer
+
+### 核心思想：把 RL 变成序列建模
+
+- **传统 RL (World Models)**: 学习 P(s'|s,a)，在想象中规划
+- **Decision Transformer**: 学习 P(a | R̂, s)，条件生成动作
+  - R̂ = Return-to-Go (从当前到结束的累积奖励)
+
+### Credit Assignment 类比
+
+| 方法 | 类比 | 信息传播 |
+|:---|:---|:---|
+| TD Learning | RNN | 逐步反向传播，误差累积 |
+| Decision Transformer | Transformer | Self-Attention 直接全局连接 |
+
+---
+
+# World Models vs Decision Transformer
+
+| 维度 | World Models | Decision Transformer |
+|:---|:---|:---|
+| **核心** | 学习世界如何运转 | 学习好轨迹长什么样 |
+| **是否学世界模型** | 是 | 否 |
+| **能否超越数据** | 是（想象中探索） | 否（受限于数据） |
+| **稀疏奖励** | 困难 | 自然处理 |
+
+**本质区别：**
+- World Models: "理解世界" → 想象 → 决策
+- Decision Transformer: "模仿成功" → 条件生成
 
 ---
 
