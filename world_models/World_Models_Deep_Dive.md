@@ -1594,13 +1594,263 @@ V(s) 压缩了"未来所有信息"
 
 ---
 
+# 第七部分
+## 🔧 DreamerV3 代码走读
+
+---
+
+# RSSM 核心参数
+
+```python
+class RSSM(nj.Module):
+    deter: int = 4096      # 确定性状态维度
+    hidden: int = 2048     # 隐藏层维度
+    stoch: int = 32        # 随机变量数量
+    classes: int = 32      # 每个变量的类别数
+    unimix: float = 0.01   # 均匀分布混合
+    blocks: int = 8        # BlockLinear 块数
+    free_nats: float = 1.0 # KL 损失下界
+```
+
+**关键设计**：
+- 状态总维度: 4096 + 32×32 = **5120 维**
+- 离散 categorical 比连续高斯更稳定
+- `unimix=0.01` 防止分布过于尖锐
+
+---
+
+# GRU 门控：为什么用 `update - 1`？
+
+```python
+# 核心代码 (rssm.py:152-158)
+x = self.sub('dyngru', nn.BlockLinear, 3 * self.deter, g)(x)
+gates = jnp.split(flat2group(x), 3, -1)
+reset, cand, update = [group2flat(x) for x in gates]
+
+reset = jax.nn.sigmoid(reset)
+cand = jnp.tanh(reset * cand)
+update = jax.nn.sigmoid(update - 1)  # 关键！
+
+deter = update * cand + (1 - update) * deter
+```
+
+**为什么 `-1`？**
+- `sigmoid(0) = 0.5`，`sigmoid(-1) ≈ 0.27`
+- 默认 update ≈ 0.27，即 **73% 保留旧信息**
+- 偏向**长期记忆**
+
+---
+
+# KL Balancing 代码解析
+
+```python
+def loss(self, carry, tokens, acts, reset, training):
+    # 获取先验和后验
+    prior = self._prior(feat['deter'])  # p(z|h)
+    post = feat['logit']                 # q(z|h,o)
+
+    # KL Balancing
+    dyn = self._dist(sg(post)).kl(self._dist(prior))  # 训练先验
+    rep = self._dist(post).kl(self._dist(sg(prior)))  # 训练后验
+
+    # Free bits
+    dyn = jnp.maximum(dyn, self.free_nats)  # >= 1.0
+    rep = jnp.maximum(rep, self.free_nats)
+
+    losses = {'dyn': dyn, 'rep': rep}
+```
+
+**Agent.py 中的权重**：`0.5 * dyn + 0.1 * rep`
+- 偏向训练先验（想象时只能用先验）
+
+---
+
+# λ-Return 实现
+
+```python
+def lambda_return(last, term, rew, val, boot, disc, lam):
+    rets = [boot[:, -1]]  # 从 bootstrap 开始
+    live = (1 - f32(term))[:, 1:] * disc
+    cont = (1 - f32(last))[:, 1:] * lam
+    interm = rew[:, 1:] + (1 - cont) * live * boot[:, 1:]
+
+    # 从后向前递归
+    for t in reversed(range(live.shape[1])):
+        rets.append(interm[:, t] + live[:, t] * cont[:, t] * rets[-1])
+
+    return jnp.stack(list(reversed(rets))[:-1], 1)
+```
+
+**公式**：$G_t^\lambda = r_{t+1} + \gamma[(1-\lambda)V(s_{t+1}) + \lambda G_{t+1}^\lambda]$
+
+---
+
+# 第八部分
+## 📊 实验验证
+
+---
+
+# CartPole 对比实验
+
+### 实验设置
+- **任务**: CartPole-v1 (状态 4 维，动作 2 维)
+- **对比方法**: DQN vs Simple WM vs Mini Dreamer
+- **设备**: MacBook Pro with MPS
+
+### 实验结果
+
+| 方法 | 最终奖励 | 环境步数 | 训练时间 | 样本效率 |
+|:---|:---|:---|:---|:---|
+| DQN | 44.2 | 19,788 | 45s | 1× |
+| Simple WM | 18.4 | 4,015 | 169s | **4.9×** |
+| Mini Dreamer | 25.9 | 3,738 | 580s | **5.3×** |
+
+---
+
+# 样本效率对比图
+
+```
+环境步数 (越少越好):
+─────────────────────────────────────────────────
+
+DQN:           ████████████████████ 19,788 steps
+Simple WM:     ████ 4,015 steps (4.9× 更少)
+Mini Dreamer:  ███ 3,738 steps (5.3× 更少) ⭐
+
+训练时间 (越少越好):
+─────────────────────────────────────────────────
+
+DQN:           ██ 45s
+Simple WM:     ████████ 169s
+Mini Dreamer:  ██████████████████████████ 580s
+```
+
+---
+
+# 关键洞察
+
+<div class="columns">
+<div>
+
+### 世界模型的优势
+- **减少真实交互** 5× 以上
+- 在想象中无限练习
+- 适合环境交互昂贵的场景
+
+</div>
+<div>
+
+### 权衡
+- 模型训练开销大
+- Wall-clock 时间不一定更短
+- 模型预测误差会累积
+
+</div>
+</div>
+
+> **核心价值**：当真实环境交互成本高时（机器人、自动驾驶），世界模型优势明显
+
+---
+
+# 第九部分
+## 🔮 2024 最新进展
+
+---
+
+# Genie 2 (2024.12)
+
+### Google DeepMind 最新发布
+
+```
+Genie 2 的突破：
+├─ 从单张图像生成可玩的 3D 世界
+├─ 支持人类/AI 实时交互控制
+├─ 可生成各种视角和相机移动
+├─ 训练数据来自视频（无需动作标签）
+└─ 用于 AI agent 的安全测试环境
+```
+
+**意义**：
+- 从视频学习物理直觉
+- 可以生成训练数据给 RL agent
+- 朝向通用世界模拟器
+
+---
+
+# Sora 作为世界模型
+
+### OpenAI 视频生成模型
+
+```
+Sora 的世界模型能力：
+├─ 理解物理规律（重力、碰撞）
+├─ 保持时空一致性
+├─ 支持长视频生成
+└─ 但没有交互能力
+
+vs Genie/Dreamer:
+├─ Sora: 生成式，无法交互
+├─ Genie: 可交互，离散动作空间
+└─ Dreamer: 可交互，连续动作空间
+```
+
+---
+
+# 1X World Model (2024)
+
+### 真实机器人的世界模型
+
+```
+关键特点：
+├─ 从真实机器人视频学习
+├─ 可预测物理交互效果
+├─ 支持 sim2real 迁移
+└─ 在物理机器人上验证
+
+实际应用：
+├─ 机器人操作任务
+├─ 安全策略测试
+└─ 数据增强
+```
+
+**趋势**：从游戏 → 真实世界
+
+---
+
+# 未来方向总结
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    世界模型发展路线                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  规模化                                                     │
+│  ├─ 更大模型、更多数据                                      │
+│  ├─ 从互联网视频学习通用世界知识                            │
+│  └─ Foundation World Model?                                │
+│                                                             │
+│  多模态                                                     │
+│  ├─ 视觉 + 语言 + 动作 统一                                │
+│  ├─ 可以用语言描述目标                                      │
+│  └─ RT-2, PaLM-E 方向                                      │
+│                                                             │
+│  真实世界                                                   │
+│  ├─ 从模拟到现实 (Sim2Real)                                │
+│  ├─ 机器人操作、自动驾驶                                    │
+│  └─ 安全性保证                                             │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
 # 🙏 谢谢！
 
 ## Q&A
 
 ---
 
-# 附录：核心公式速查
+# 附录 A：核心公式速查
 
 <div style="font-size: 0.7em">
 
@@ -1630,4 +1880,108 @@ V(s) 压缩了"未来所有信息"
 2023.04  I-JEPA 图像自监督
 2024.02  Genie 从视频学习可控世界
 2024.02  V-JEPA 视频自监督
+2024.10  DIAMOND 扩散世界模型超越 DreamerV3
+2024.12  Genie 2 发布
 ```
+
+---
+
+# 附录 C：各方法代码资源
+
+| 方法 | 官方代码 | PyTorch 复现 |
+|:---|:---|:---|
+| World Models | worldmodels.github.io | ctallec/world-models |
+| PlaNet | github.com/google-research/planet | Kaixhin/PlaNet |
+| Dreamer | github.com/danijar/dreamer | yusukeurakami/dreamer-pytorch |
+| DreamerV2 | github.com/danijar/dreamerv2 | jsikyoon/dreamerv2 |
+| DreamerV3 | github.com/danijar/dreamerv3 | NM512/dreamerv3-torch |
+| DIAMOND | github.com/eloialonso/diamond | - |
+| Genie | - | - |
+
+---
+
+# 附录 D：常见问题解答
+
+### Q1: 为什么 Dreamer 只想象 15 步？
+
+```
+原因：梯度误差会累积
+
+想象越长 → 梯度链越长 → 误差指数放大
+
+解决：
+- 用 Critic 估计剩余价值 V(s_15)
+- 15 步 + V(s_15) ≈ 无限步
+- 这就是 Actor-Critic 的价值
+```
+
+### Q2: KL Balancing 为什么有效？
+
+```
+传统 KL: min D_KL(q || p)
+问题：q 可能"躲避"到 p 覆盖的区域
+
+KL Balancing:
+- L_dyn: 固定 q，训练 p → 先验变强
+- L_rep: 固定 p，训练 q → 后验规整
+
+结果：先验足够强，想象时预测准确
+```
+
+### Q3: 离散 vs 连续潜在空间？
+
+```
+连续 (V1):
+- 高斯分布 N(μ, σ)
+- 容易"后验坍缩"
+- 训练不稳定
+
+离散 (V2+):
+- 32×32 categorical
+- 清晰边界
+- 更稳定
+- Straight-Through 梯度
+```
+
+---
+
+# 附录 E：术语表
+
+| 术语 | 定义 |
+|:---|:---|
+| **RSSM** | Recurrent State Space Model，双路径状态空间模型 |
+| **KL Balancing** | 分开更新先验和后验的 KL 损失设计 |
+| **Free Bits** | KL 损失的下界，防止过度正则化 |
+| **symlog** | sign(x)·ln(\|x\|+1)，奖励尺度归一化 |
+| **λ-Return** | TD(λ) 回报，平衡偏差和方差 |
+| **Imagination** | 在世界模型中展开轨迹，无需真实交互 |
+| **Straight-Through** | 前向离散，反向连续的梯度技巧 |
+| **Posterior Collapse** | 后验退化为先验，丢失信息 |
+
+---
+
+# 附录 F：扩展阅读
+
+### 论文精读顺序
+
+```
+入门级:
+1. World Models (2018) - 核心思想
+2. Dreamer (2020) - Actor-Critic 框架
+
+进阶级:
+3. DreamerV2 (2021) - 离散表示
+4. DreamerV3 (2023) - 通用超参数
+
+前沿级:
+5. Genie (2024) - 无监督动作学习
+6. DIAMOND (2024) - 扩散世界模型
+7. JEPA (2024) - 非生成式表示预测
+```
+
+### 相关领域
+
+- **Model Predictive Control (MPC)**: 经典控制方法
+- **Offline RL**: 从历史数据学习
+- **Representation Learning**: 学习好的状态表示
+- **Video Prediction**: 视频预测模型
