@@ -1143,7 +1143,78 @@ world_models/
 ├── World_Models_Presentation.md  # 原始演示文稿（参考）
 │
 └── experiments/
-    ├── 1_baseline_dqn.py         # DQN Baseline
-    ├── 2_world_model_full.py     # CartPole World Model
-    └── 3_car_racing_world_model.py # CarRacing (带 checkpoint)
+    ├── 1_baseline_dqn.py           # DQN Baseline
+    ├── 2_simple_world_model.py     # Simple World Model
+    ├── 3_mini_dreamer.py           # Mini Dreamer
+    └── 4_comprehensive_comparison.py # 综合对比
+```
+
+---
+
+# 附录：CartPole 样本效率实验
+
+## 实验结果
+
+| 方法 | 最终奖励 | 环境步数 | 训练时间 | 样本效率 |
+|:---|:---|:---|:---|:---|
+| **DQN** | 44.2 | 19,788 | 45s | 1× |
+| **Simple WM** | 18.4 | 4,015 | 169s | **4.9×** |
+| **Mini Dreamer** | 25.9 | 3,738 | 580s | **5.3×** |
+
+## 关键洞察
+
+- **样本效率提升**：世界模型减少 5× 环境交互
+- **计算换交互**：模型训练开销换取真实环境交互
+- **适用场景**：当真实环境交互昂贵时（机器人、自动驾驶）
+
+---
+
+# 附录：2024 最新进展
+
+## Genie 2 (DeepMind, 2024.12)
+
+```
+核心能力：
+├─ 从单张图像生成可玩的 3D 世界
+├─ 支持人类/AI 实时交互控制
+├─ 视频训练（无需动作标签）
+└─ AI agent 安全测试环境
+```
+
+## DIAMOND: 扩散世界模型
+
+| 方法 | Atari 100K | 说明 |
+|:---|:---|:---|
+| DreamerV3 | 1.03 | 离散潜在空间 |
+| **DIAMOND** | **1.46** | 扩散世界模型 |
+
+**核心洞察**：扩散模型保留视觉细节，某些任务需要精确像素信息
+
+---
+
+# 附录：DreamerV3 关键设计
+
+## RSSM 参数
+
+```python
+deter: int = 4096      # 确定性状态维度
+stoch: int = 32        # 随机变量数量
+classes: int = 32      # 每个变量的类别数
+free_nats: float = 1.0 # KL 损失下界
+```
+
+## GRU 门控偏置
+
+```python
+update = jax.nn.sigmoid(update - 1)  # 偏向保留旧信息
+# sigmoid(-1) ≈ 0.27 → 73% 保留旧信息 → 长期记忆
+```
+
+## KL Balancing
+
+```python
+# 分开训练先验和后验
+dyn = KL(sg(post) || prior)  # 训练先验
+rep = KL(post || sg(prior))  # 训练后验
+loss = 0.5 * dyn + 0.1 * rep  # 偏向先验更强
 ```

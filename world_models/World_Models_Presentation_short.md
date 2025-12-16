@@ -775,5 +775,33 @@ DreamerV2/V3 (2021/2023)
 
 - **论文**: https://arxiv.org/abs/1803.10122
 - **官网**: https://worldmodels.github.io/
-- **代码**: `world_models/experiments/3_car_racing_world_model.py`
+- **代码**: `world_models/experiments/`
 - **完整版**: `World_Models_Presentation_long.md` (90 min, 含代码和互动)
+- **深度版**: `World_Models_Deep_Dive.md` (包含 Dreamer 系列和 2024 进展)
+
+---
+
+# 附录：CartPole 样本效率验证
+
+## 实验结果
+
+| 方法 | 环境步数 | 样本效率 |
+|:---|:---|:---|
+| DQN | 19,788 | 1× |
+| Simple WM | 4,015 | **4.9×** |
+| Mini Dreamer | 3,738 | **5.3×** |
+
+**核心验证**：世界模型大幅减少真实环境交互
+
+---
+
+# 附录：2024 最新进展速览
+
+| 方向 | 代表工作 | 核心创新 |
+|:---|:---|:---|
+| **大规模视频** | Genie 2 | 从单图生成可玩 3D 世界 |
+| **扩散模型** | DIAMOND | 扩散世界模型超越 DreamerV3 |
+| **抽象表示** | JEPA | 不解码像素，只预测表示 |
+| **序列建模** | Decision Transformer | 把 RL 变成条件生成 |
+
+> 世界模型领域正从"单一方法"走向"多路线并进"
