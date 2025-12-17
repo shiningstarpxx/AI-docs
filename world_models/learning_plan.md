@@ -53,10 +53,10 @@
 ### Week 1: 概率图模型与序列建模
 
 #### 学习目标
-- [ ] 理解马尔可夫决策过程（MDP）
+- [x] 理解马尔可夫决策过程（MDP） *(通过 World Models 论文学习)*
 - [ ] 掌握隐马尔可夫模型（HMM）
-- [ ] 学习状态空间模型（State Space Models）
-- [ ] 理解贝叶斯推断基础
+- [x] 学习状态空间模型（State Space Models） *(07_rssm_math.md)*
+- [x] 理解贝叶斯推断基础 *(VAE/MDN 学习中涉及)*
 
 #### 核心内容
 1. **马尔可夫决策过程**
@@ -96,9 +96,9 @@
 ### Week 2-3: 深度生成模型
 
 #### 学习目标
-- [ ] 掌握VAE的原理与实现
+- [x] 掌握VAE的原理与实现 *(02_vae_math.md, experiments/)*
 - [ ] 理解GAN的训练机制
-- [ ] 学习扩散模型基础
+- [x] 学习扩散模型基础 *(15_diffusion_world_models.md)*
 - [ ] 了解归一化流（Normalizing Flows）
 
 #### 核心内容
@@ -441,10 +441,10 @@ RSSM (Recurrent State Space Model)：
 ### Week 8-9: Model-Based RL理论
 
 #### 学习目标
-- [ ] 理解model-based vs model-free的权衡
+- [x] 理解model-based vs model-free的权衡 *(08_world_models_landscape.md, 11_world_models_vs_dreamer.md)*
 - [ ] 掌握Dyna架构
-- [ ] 学习模型误差的影响
-- [ ] 理解imagination-based训练
+- [x] 学习模型误差的影响 *(CartPole Dream-Reality Gap 实验)*
+- [x] 理解imagination-based训练 *(Dreamer 系列研究)*
 
 #### 核心概念
 
@@ -953,43 +953,43 @@ Vision Encoder + Language Encoder → Transformer → Action Head
 ## ✅ 学习检查清单
 
 ### 理论理解
-- [ ] 能解释世界模型的核心思想
-- [ ] 理解VAE、GAN、Diffusion的数学原理
-- [ ] 掌握RSSM状态空间模型
-- [ ] 理解model-based vs model-free权衡
-- [ ] 能分析模型误差的影响
+- [x] 能解释世界模型的核心思想 *(01_world_models_concept.md)*
+- [x] 理解VAE、GAN、Diffusion的数学原理 *(02_vae_math.md, 15_diffusion_world_models.md)*
+- [x] 掌握RSSM状态空间模型 *(07_rssm_math.md, 17_dreamerv3_code_walkthrough.md)*
+- [x] 理解model-based vs model-free权衡 *(11_world_models_vs_dreamer.md)*
+- [x] 能分析模型误差的影响 *(18_experiment_report.md Dream-Reality Gap)*
 
 ### 实践能力
-- [ ] 从零实现World Models
-- [ ] 复现Dreamer系列至少一个版本
-- [ ] 在标准环境上达到论文水平
-- [ ] 能设计消融实验
-- [ ] 会分析实验结果
+- [x] 从零实现World Models *(experiments/3_car_racing_world_model.py)*
+- [x] 复现Dreamer系列至少一个版本 *(experiments/3_mini_dreamer.py)*
+- [ ] 在标准环境上达到论文水平 *(CarRacing 进行中)*
+- [x] 能设计消融实验 *(CartPole DQN vs WM vs Dreamer)*
+- [x] 会分析实验结果 *(18_experiment_report.md)*
 
 ### 应用拓展
-- [ ] 了解自动驾驶中的应用
-- [ ] 理解机器人学习中的挑战
-- [ ] 关注视频生成前沿
-- [ ] 跟踪最新论文
+- [x] 了解自动驾驶中的应用 *(12_future_world_models.md)*
+- [x] 理解机器人学习中的挑战 *(12_future_world_models.md)*
+- [x] 关注视频生成前沿 *(12_future_world_models.md Sora/Genie)*
+- [x] 跟踪最新论文 *(Genie 2, DIAMOND 2024)*
 
 ---
 
 ## 🎯 学习里程碑
 
-### 第1个月
-- ✅ 完成基础理论学习
-- ✅ 实现简单的VAE和HMM
-- ✅ 复现World Models（CarRacing）
+### 第1个月 (2025-12 进行中)
+- [x] 完成基础理论学习 *(VAE, MDN, RSSM)*
+- [x] 实现简单的VAE *(ConvVAE for CarRacing)*
+- [~] 复现World Models（CarRacing） *进行中 70/300*
 
-### 第3个月
-- ✅ 掌握Dreamer系列算法
-- ✅ 在MuJoCo任务上达到基线性能
-- ✅ 完成MBPO实现
+### 第3个月 (目标)
+- [x] 掌握Dreamer系列算法 *(06_dreamer_series.md, 17_dreamerv3_code_walkthrough.md)*
+- [ ] 在MuJoCo任务上达到基线性能
+- [ ] 完成MBPO实现
 
-### 第6个月
-- ✅ 深入理解视频预测
-- ✅ 探索多模态融合
-- ✅ 开始原创性研究
+### 第6个月 (目标)
+- [ ] 深入理解视频预测
+- [ ] 探索多模态融合
+- [ ] 开始原创性研究
 
 ### 持续目标
 - 📝 每周阅读1-2篇论文
@@ -1043,4 +1043,20 @@ Vision Encoder + Language Encoder → Transformer → Action Head
 
 **祝学习顺利！🎓**
 
-*最后更新: 2025-11-02*
+*最后更新: 2025-12-17*
+
+---
+
+## 📊 当前进度统计
+
+| 阶段 | 完成度 | 说明 |
+|:---|:---|:---|
+| 阶段一：基础理论 | 85% | VAE/MDN/RSSM 完成，HMM 未实践 |
+| 阶段二：经典世界模型 | 90% | CarRacing 训练中 |
+| 阶段三：Model-Based RL | 40% | Dyna/MBPO 待实现 |
+| 阶段四：视频预测 | 30% | 概念研究完成，实践未开始 |
+| 阶段五：前沿应用 | 25% | 跟踪 2024 进展 |
+
+**文档产出**: 21 份研究文档 + 4 份技术分享
+**实验产出**: 5 个实验脚本，CartPole 对比完成，CarRacing 进行中
+**代码研究**: DreamerV3 源码走读完成
