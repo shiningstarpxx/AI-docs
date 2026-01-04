@@ -1047,16 +1047,22 @@ Vision Encoder + Language Encoder → Transformer → Action Head
 
 ---
 
-## 📊 当前进度统计
+## 📊 当前进度统计 (更新于 2025-12-17)
 
 | 阶段 | 完成度 | 说明 |
 |:---|:---|:---|
 | 阶段一：基础理论 | 85% | VAE/MDN/RSSM 完成，HMM 未实践 |
 | 阶段二：经典世界模型 | 90% | CarRacing 训练中 |
-| 阶段三：Model-Based RL | 40% | Dyna/MBPO 待实现 |
+| 阶段三：Model-Based RL | **70%** | Dyna 完成，MBRL 理论完成，MBPO 待实现 |
 | 阶段四：视频预测 | 30% | 概念研究完成，实践未开始 |
-| 阶段五：前沿应用 | 25% | 跟踪 2024 进展 |
+| 阶段五：前沿应用 | **40%** | Decision Transformer 完成，因果/多模态待深入 |
 
-**文档产出**: 21 份研究文档 + 4 份技术分享
-**实验产出**: 5 个实验脚本，CartPole 对比完成，CarRacing 进行中
+**文档产出**: 25 份研究文档 + 4 份技术分享
+**实验产出**: 6 个实验脚本，CartPole 对比完成，Dyna-Q 完成，CarRacing 进行中
 **代码研究**: DreamerV3 源码走读完成
+
+### 本次新增
+- `19_dyna_algorithm.md` - Dyna 架构完整解析
+- `20_mbrl_theory.md` - MBRL 理论深度解析
+- `25_decision_transformer.md` - DT 与 World Models 对比
+- `experiments/5_dyna_q.py` - Dyna-Q 实现与实验

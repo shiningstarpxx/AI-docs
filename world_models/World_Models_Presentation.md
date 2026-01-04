@@ -832,7 +832,9 @@ world_models/
 └── experiments/
     ├── 1_baseline_dqn.py         # DQN Baseline
     ├── 2_world_model_full.py     # CartPole World Model
-    └── 3_car_racing_world_model.py # CarRacing (带 checkpoint)
+    ├── 3_car_racing_world_model.py # CarRacing (带 checkpoint)
+    ├── 3_mini_dreamer.py         # Mini Dreamer
+    └── 4_comprehensive_comparison.py # Comprehensive Comparison
 ```
 
 ---

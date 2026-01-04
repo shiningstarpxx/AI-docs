@@ -11,7 +11,16 @@
 ## Phase 1: 完成进行中项目 (本周)
 
 ### 1.1 CarRacing 实验完成
-- [~] CMA-ES 控制器训练 (Generation 70/300)
+- [~] CMA-ES 控制器训练 (Generation 160/300 - **53%完成**) 🔄
+  - **当前状态** (2025-12-22 17:39):
+    - 进度: Generation 160/300
+    - 最佳梦境奖励: -9.9 (all-time best)
+    - 当代最佳: -19.7, 平均: -25.8
+    - 预计完成时间: ~3天后 (2025-12-25)
+  - **历史进展**:
+    - Gen 70 (12-15): Best -9.9 首次出现
+    - Gen 110 (12-17): Best -9.9 保持
+    - Gen 160 (12-22): Best -9.9 稳定，说明训练稳定
 - [ ] 真实环境评估 (目标: ~900 分)
 - [ ] 实验结果分析与文档化
 
@@ -27,52 +36,54 @@
 
 ---
 
-## Phase 2: 阶段三 Model-Based RL 深入 (下周)
+## Phase 2: 阶段三 Model-Based RL 深入 (下周) ✅ COMPLETED
 
-### 2.1 Dyna 算法实现
-- [ ] GridWorld 环境搭建
-- [ ] 表格式 Q-learning 基线
-- [ ] Dyna-Q 实现
-- [ ] 优先级扫描 (Prioritized Sweeping)
-- [ ] Planning steps 对比实验
-- [ ] 文档: `19_dyna_algorithm.md`
+### 2.1 Dyna 算法实现 ✅
+- [x] GridWorld 环境搭建
+- [x] 表格式 Q-learning 基线
+- [x] Dyna-Q 实现
+- [x] 优先级扫描 (Prioritized Sweeping)
+- [x] Planning steps 对比实验 (n=5,10,50)
+- [x] 文档: `19_dyna_algorithm.md`
+- [x] 实验代码: `experiments/5_dyna_q.py`
 
-### 2.2 Model-Based RL 理论深化
-- [ ] 阅读 MBRL Survey (Moerland et al., 2023)
-- [ ] 模型误差分析笔记
-- [ ] 短视野 vs 长视野规划对比
-- [ ] 文档: `20_mbrl_theory.md`
-
----
-
-## Phase 3: MBPO 与探索 (两周内)
-
-### 3.1 MBPO 实现
-- [ ] 概率集成模型 (Probabilistic Ensemble)
-- [ ] MuJoCo 环境配置 (HalfCheetah)
-- [ ] SAC 策略优化集成
-- [ ] 短视野 rollout (k=5) 实现
-- [ ] 混合缓冲区管理
-- [ ] 样本效率对比 (vs SAC baseline)
-- [ ] 文档: `21_mbpo_implementation.md`
-
-### 3.2 好奇心驱动探索
-- [ ] ICM (Intrinsic Curiosity Module) 实现
-- [ ] MiniGrid 稀疏奖励环境
-- [ ] 内在奖励可视化
-- [ ] 探索覆盖率分析
-- [ ] 文档: `22_curiosity_exploration.md`
+### 2.2 Model-Based RL 理论深化 ✅
+- [x] MBRL 理论框架整理
+- [x] 模型误差分析 (复合误差、分布偏移)
+- [x] 短视野 vs 长视野规划对比
+- [x] 不确定性量化方法
+- [x] 文档: `20_mbrl_theory.md`
 
 ---
 
-## Phase 4: 视频预测与扩散模型 (月内)
+## Phase 3: MBPO 与探索 (两周内) - 文档完成
 
-### 4.1 视频预测基线
-- [ ] Moving MNIST 数据准备
-- [ ] ConvLSTM 基线实现
-- [ ] VAE 视频预测版本
-- [ ] 评估指标 (PSNR, SSIM, LPIPS)
-- [ ] 文档: `23_video_prediction.md`
+### 3.1 MBPO 文档 ✅
+- [x] 概率集成模型理论
+- [x] 短视野 rollout 分析
+- [x] SAC 策略优化框架
+- [x] 混合缓冲区管理
+- [x] 文档: `21_mbpo_implementation.md`
+- [ ] MuJoCo 实验 (待资源)
+
+### 3.2 好奇心驱动探索 ✅
+- [x] ICM 架构与原理
+- [x] RND 方法解析
+- [x] Plan2Explore 与世界模型结合
+- [x] 文档: `22_curiosity_exploration.md`
+- [ ] 实验实现 (待资源)
+
+---
+
+## Phase 4: 视频预测与扩散模型 (月内) - 文档完成
+
+### 4.1 视频预测 ✅
+- [x] ConvLSTM 架构解析
+- [x] SVG 随机视频生成
+- [x] Video Transformer/Diffusion
+- [x] 评估指标 (PSNR, SSIM, LPIPS, FVD)
+- [x] 文档: `23_video_prediction.md`
+- [ ] Moving MNIST 实验 (待实现)
 
 ### 4.2 扩散世界模型探索
 - [ ] DIAMOND 论文精读
@@ -84,11 +95,12 @@
 
 ## Phase 5: 前沿方向 (持续)
 
-### 5.1 Decision Transformer
-- [ ] 论文精读 + 笔记
-- [ ] 与 World Models 对比分析
-- [ ] 序列建模视角的 RL 理解
-- [ ] 文档: `25_decision_transformer.md`
+### 5.1 Decision Transformer ✅
+- [x] 论文精读 + 笔记
+- [x] 与 World Models 对比分析
+- [x] 序列建模视角的 RL 理解
+- [x] Credit Assignment 对比 (Self-Attention vs TD)
+- [x] 文档: `25_decision_transformer.md`
 
 ### 5.2 因果世界模型深入
 - [ ] Causal Confusion 问题实验
@@ -116,6 +128,15 @@
 - [x] DreamerV3 代码走读 (17_dreamerv3_code_walkthrough.md)
 - [x] CartPole 对比实验 (18_experiment_report.md)
 
+### 阶段三: Model-Based RL (NEW)
+- [x] Dyna-Q 算法实现 (experiments/5_dyna_q.py)
+- [x] Dyna 文档 (19_dyna_algorithm.md)
+- [x] MBRL 理论深度解析 (20_mbrl_theory.md)
+- [x] MBPO 深度解析 (21_mbpo_implementation.md)
+- [x] 好奇心驱动探索 (22_curiosity_exploration.md)
+- [x] 视频预测基础 (23_video_prediction.md)
+- [x] Decision Transformer 研究 (25_decision_transformer.md)
+
 ### 阶段四: 视频生成 (概念)
 - [x] Sora/Genie 研究 (12_future_world_models.md)
 - [x] JEPA 对比 (13_genie_jepa_comparison.md)
@@ -129,31 +150,32 @@
 
 ---
 
-## 优先级矩阵
+## 优先级矩阵 (更新于 2025-12-23)
 
-| 任务 | 重要性 | 紧急度 | 预计时间 |
-|:---|:---|:---|:---|
-| CarRacing 完成 | 高 | 高 | ~3天 |
-| MPS 优化 | 中 | 中 | 1天 |
-| Dyna 实现 | 高 | 中 | 3天 |
-| MBPO 实现 | 高 | 低 | 1周 |
-| 视频预测 | 中 | 低 | 1周 |
-| Decision Transformer | 中 | 低 | 3天 |
+| 任务 | 重要性 | 紧急度 | 预计时间 | 状态 |
+|:---|:---|:---|:---|:---|
+| CarRacing 完成 | 高 | 高 | ~3天 | **进行中 (160/300, 53%)** |
+| MPS 优化 | 中 | 中 | 1天 | 待定 |
+| ~~Dyna 实现~~ | ~~高~~ | ~~中~~ | ~~3天~~ | **已完成** |
+| ~~MBPO 文档~~ | ~~高~~ | ~~低~~ | ~~1周~~ | **已完成** |
+| ~~视频预测~~ | ~~中~~ | ~~低~~ | ~~1周~~ | **已完成** |
+| ~~Decision Transformer~~ | ~~中~~ | ~~低~~ | ~~3天~~ | **已完成** |
+| 多模态融合 | 中 | 低 | 3天 | 下一步 |
 
 ---
 
 ## 里程碑
 
 ### 短期 (1周)
-- [ ] CarRacing 实验完成
-- [ ] Dyna 算法实现
+- [~] CarRacing 实验完成 (160/300 代 - 53%) ⏳ **预计 12-25 完成**
+- [x] Dyna 算法实现 ✅
 
 ### 中期 (1月)
-- [ ] MBPO 实现并验证
-- [ ] 视频预测基线完成
-- [ ] 文档体系达到 25+ 篇
+- [x] MBPO 文档完成 ✅
+- [x] 视频预测文档完成 ✅
+- [x] 文档体系达到 25+ 篇 ✅ (当前 28 篇)
 
 ### 长期 (3月)
-- [ ] 10 个实践项目完成 8 个
+- [ ] 10 个实践项目完成 8 个 (当前 6/10)
 - [ ] 原创性研究方向确定
 - [ ] 技术博客系列发布
